@@ -36,29 +36,67 @@ Dokumentacja powinna zostać przygotowana w taki sposób, aby:
 
 ## Cel
 
-Rozdział dokumentu powinien opisywać kluczowe procesy biznesowe zachodzące w przedsiębiorstwie. 
+Rozdział dokumentu powinien opisywać kluczowe procesy biznesowe zachodzące w przedsiębiorstwie.
 
 Przedsiębiorstwo lub organizacja pełnią rolę środowiska, w którym działał będzie projektowany system informatyczny.
 
-Należy uwzględnić tylko te procesy, które na jakimś etapie(jedna lub więcej czynności w ramach procesu) będą wspierane przez system informatyczny. Można ograniczyć liczbę procesów do 3–5 (nietrywialnych).
+Należy uwzględnić tylko te procesy, które na jakimś etapie (jedna lub więcej czynności w ramach procesu) będą wspierane przez system informatyczny. Można ograniczyć liczbę procesów do 3–5 (nietrywialnych).
 
 ## Wyniki prac
 
 ### Lista wykonawców czynności
-lista wszystkich wykonawców czynności w ramach procesów biznesowych wraz z ich zwięzłym i precyzyjnym opisem.
+lista wszystkich `wykonawców czynności` w ramach procesów biznesowych wraz z ich zwięzłym i precyzyjnym opisem.
+
+
+### 1. Zmiana imienia/nazwiska
+<!-- Mateusz Brzozowski -->
+
+### 2. Narodziny
+<!-- Bartłomiej Krawczyk -->
+
+### 3. Ślub cywilny
+<!-- Gabriela Topczewska -->
+
+### 4. Zgon
+<!-- Bartłomiej Krawczyk -->
+
+- 
+- urzędnik
+- para młoda
 
 ### Specyfikacje procesów biznesowych
 zwięzły opis poszczególnych procesów biznesowych oraz specyfikacje czynności wykonywanych w ramach poszczególnych procesów zapisane jako diagramy aktywności (ang.activity diagram) w notacji UML. Na diagramach należy podać wykonawców czynności, korzystając z torów (ang. swimlanes) lub boksów. Ponadto, należy w szczególny sposób oznaczyć czynności (węzły diagramów), które wspierać będzie projektowany system informatyczny, np. opatrując je stereotypem **\<\<system\>\>**.
 
+https://mermaid-js.github.io/mermaid/#/stateDiagram
+
+### 1. Zmiana imienia/nazwiska
+<!-- Mateusz Brzozowski -->
+
+```mermaid
+stateDiagram
+    Yswsii: Your state with spaces in it
+    [*] --> Yswsii
+```
+
+### 2. Narodziny
+<!-- Bartłomiej Krawczyk -->
+
+### 3. Ślub cywilny
+<!-- Gabriela Topczewska -->
+
+### 4. Zgon
+<!-- Bartłomiej Krawczyk -->
+
+
 # Modelowanie przypadków użycia
 
 ## Cel 
-Rozdział dokumentu powinien opisywać specyfikację interakcji (dialogu) użytkowników z projektowanym systemem informatycznym,umożliwiając zaprojektowanie jego interfejsu i sporządzenie makiety tego systemu.
+Rozdział dokumentu powinien opisywać specyfikację interakcji (dialogu) użytkowników z projektowanym systemem informatycznym, umożliwiając zaprojektowanie jego interfejsu i sporządzenie makiety tego systemu.
 
 ## Wyniki prac
 
 ### Lista aktorów systemowych 
-lista użytkowników i systemów informatycznych podejmujących interakcję z projektowanym systemem.
+lista użytkowników i systemów informatycznych `podejmujących interakcję` z projektowanym systemem.
 
 ### Diagramy przypadków użycia systemu
 sporządzone zgodnie z notacją UML diagramy ilustrujące przypadki użycia systemu i ich związki z odpowiednimi aktorami, oraz zależności pomiędzy przypadkami użycia (**\<\<include\>\>**,**\<\<extend\>\>**, generalizacja/specjalizacja).
@@ -68,6 +106,8 @@ specyfikacje przebiegu interakcji w obrębie poszczególnych przypadków użycia
 
 ### Projekty ekranów
 graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do wprowadzania danych lub wybierania opcji przez użytkownika w ramach danego przypadku użycia.
+
+<!-- Mateusz Brzozowski -->
 
 **Uwaga:** Dla każdego przypadku użycia na diagramie należy opracować jego specyfikację oraz projekt ekranu (jeśli z przypadkiem użycia wiąże się wprowadzanie danych, wybieranie opcji).
 
