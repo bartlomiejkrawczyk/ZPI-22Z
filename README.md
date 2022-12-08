@@ -54,6 +54,27 @@ lista wszystkich `wykonawców czynności` w ramach procesów biznesowych wraz z 
 ### 2. Narodziny
 <!-- Bartłomiej Krawczyk -->
 
+Wykonawcy czynności:
+- nowo narodzone dziecko
+    - rodzi się
+- rodzic / pełnomocnik
+    - może to być:
+        - matka lub ojciec dziecka, którzy mają ukończone 16 lat i nie zostali pozbawieni zdolności do czynności prawnych,
+        - w pozostałych sytuacjach, na przykład jeśli matka dziecka ma mniej niż 16 lat lub została pozbawiona zdolności do czynności prawnych – dla przedstawiciela ustawowego (na przykład rodzica) lub opiekuna matki dziecka.
+        - Urodzenie dziecka można zgłosić samodzielnie lub może zrobić to pełnomocnik. 
+    - należy przygotować:
+        - dokument tożsamości
+        - pełnomocnictwo (w przypadku skorzystania z pełnomocnika)
+    - ma 21 dni na rejestrację dziecka w urzędzie
+- osoba, która odebrała poród
+    - lekarz lub położna
+    - wystawia kartę urodzenia
+    - ma 3 dni na przekazanie jej do urzędu stanu cywilnego
+- kierownik urzędu stanu cywilnego
+    - rejestruje urodzenie dziecka
+    - przygotowuje protokół, który zawiera dane rodziców
+    - rejestruje urodzenie dziecka, deklaruje zameldowanie oraz przydziela numer PESEL
+
 ### 3. Ślub cywilny
 <!-- Gabriela Topczewska -->
 
@@ -94,6 +115,56 @@ https://mermaid-js.github.io/mermaid/#/stateDiagram
 
 ### 2. Narodziny
 <!-- Bartłomiej Krawczyk -->
+
+```mermaid
+stateDiagram
+    [*] --> r1
+    state Dziecko {
+        direction LR
+        state "Rodzi się" as r1
+    }
+    state Lekarz {
+        direction LR
+        state "Odbiór porodu" as l1
+        state "Przygotowanie karty urodzenia" as l2
+        state "Przesłanie karty urodzenia do urzędu stanu cywilnego" as l3
+
+        l1 --> l2
+        l2 --> l3
+    }
+
+    r1 --> l1
+
+    state Bliscy {
+        state "Wizyta w urzędzie" as b1
+        state "Odbiór dokumentów" as b2
+    }
+    state "Kierownik urzędu" as kierownik {
+        state "Przygotowanie protokołu" as k1
+        state "<<\system>>" as k1
+        state "Zarejestrowanie urodzenia dziecka" as k2
+        state "<<\system>>" as k2   
+        state "Zameldowanie dziecka" as k3
+        state "<<\system>>" as k3
+        state "Nadanie numeru PESEL" as k4
+        state "<<\system>>" as k4
+        state "Przygotowanie aktu urodzenia" as k5
+        state "<<\system>>" as k5
+        state "Przekazanie dokumentów rodzicom" as k6
+
+        k1 --> k2
+        k2 --> k3
+        k3 --> k4
+        k4 --> k5
+        k5 --> k6
+    }
+
+    l3 --> k1: 3 Dni
+    l3 --> b1
+    b1 --> k1: 21 Dni
+    k6 --> b2: Skrócony akt urodzenia, numer PESEL, potwierdzenie zameldowania
+    b2 --> [*]: Rejestracja dziecka
+```
 
 ### 3. Ślub cywilny
 <!-- Gabriela Topczewska -->
@@ -161,36 +232,6 @@ stateDiagram
 
     c1 --> [*]: Pogrzeb
 ```
-
-
-Zanim pochowasz osobę, która zmarła, musisz zgłosić jej zgon w urzędzie stanu cywilnego (USC). Masz na to 3 dni od dnia wystawienia karty zgonu. Jeśli osoba ta zmarła na skutek choroby zakaźnej – tylko 24 godziny od momentu zgonu. Sprawdź, jak możesz to zrobić.
-
-## Kto może zgłosić śmierć:
-- współmałżonek osoby, która zmarła,
-- pozostała rodzina zmarłej osoby, na przykład dzieci, wnuki, prawnuki, rodzice, dziadkowie, brat, siostra, siostrzenica, bratanek, teściowie,
-- pełnomocnik jednej z powyższych osób.
-
-## Co musisz przygotować
-- kartę zgonu – dostaniesz ją od lekarza, który stwierdził zgon,
-- dowód osobisty zmarłej osoby,
-- swój dokument tożsamości do okazania (np. dowód osobisty lub paszport).
-
-## Gdzie zgłaszasz
-
-W USC właściwym dla miejsca zgonu. Przykład: jeśli osoba zmarła w Sopocie – zgłoś zgon w urzędzie stanu cywilnego w Sopocie.
-
-## Ile będziesz czekać
-
-Kierownik USC zarejestruje zgon (czyli sporządzi akt zgonu) w dniu jego zgłoszenia.
-
-Po zarejestrowaniu zgonu kierownik USC wyda ci jeden bezpłatny odpis skrócony aktu zgonu.
-
-Jeśli z przyczyn technicznych rejestracja zgonu nie będzie możliwa w dniu zgłoszenia, kierownik USC zamieści w karcie zgonu adnotację o zgłoszeniu zgonu. Z tym dokumentem możesz pójść do administracji cmentarza, żeby pochować osobę zmarłą. Kierownik USC zarejestruje zgon w najbliższym możliwym terminie. Następnie dostaniesz dwa odpisy aktu zgonu. Ustal z urzędnikiem sposób ich odbioru. Możesz je dostać podczas kolejnej wizyty w urzędzie albo listownie. Jeden odpis jest dla ciebie, drugi przekaż administracji cmentarza.
-
-## Informacje dodatkowe
-Gdy zgłosisz zgon, osoba zmarła zostanie automatycznie wymeldowana z miejsca pobytu stałego lub czasowego, a jej dowód osobisty zostanie unieważniony.
-
-
 
 # Modelowanie przypadków użycia
 
