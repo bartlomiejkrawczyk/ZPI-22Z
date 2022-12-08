@@ -159,9 +159,15 @@ stateDiagram
         k5 --> k6
     }
 
-    l3 --> k1: 3 Dni
-    l3 --> b1
-    b1 --> k1: 21 Dni
+    state fork_state <<fork>>
+      l3 --> fork_state
+      fork_state --> b1
+
+      state join_state <<join>>
+      b1 --> join_state: 21 Dni
+      join_state --> k1
+      fork_state --> join_state: 3 Dni
+
     k6 --> b2: Skrócony akt urodzenia, numer PESEL, potwierdzenie zameldowania
     b2 --> [*]: Rejestracja dziecka
 ```
