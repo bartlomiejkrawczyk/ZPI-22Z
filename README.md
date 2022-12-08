@@ -143,7 +143,7 @@ stateDiagram
         state "Przygotowanie protokołu" as k1
         state "<<\system>>" as k1
         state "Zarejestrowanie urodzenia dziecka" as k2
-        state "<<\system>>" as k2   
+        state "<<\system>>" as k2
         state "Zameldowanie dziecka" as k3
         state "<<\system>>" as k3
         state "Nadanie numeru PESEL" as k4
