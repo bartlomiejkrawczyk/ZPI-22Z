@@ -55,7 +55,9 @@ lista wszystkich `wykonawców czynności` w ramach procesów biznesowych wraz z 
 <!-- Bartłomiej Krawczyk -->
 
 ### 3. Ślub cywilny
-<!-- Gabriela Topczewska -->
+- przyszła panna młoda - jedna ze stron pragnąca zawrzeć związek małżeński
+- przyszły pan młody - druga ze stron pragnąca zaawrzeć związek małżeński
+- urzędnik USC - osoba prawna, mająca możliwość udzielenia ślubu cywilnego
 
 ### 4. Zgon
 <!-- Bartłomiej Krawczyk -->
@@ -82,7 +84,24 @@ stateDiagram
 <!-- Bartłomiej Krawczyk -->
 
 ### 3. Ślub cywilny
-<!-- Gabriela Topczewska -->
+
+Aby wziąć ślub cywilny wymagane jest dostarczenie odpowiedniej dokumentacji przez małżonków (dokumentacja ta może różnić się w zależności od wieku, czy pochodzenia przyszłych małżonków), złożenia podpisów i oświadczeń w urzędzie stanu cywilnego oraz wniesienie stosownej opłaty. Po dopełnieniu wymaganych formalności urzędnik może ustalić z parą młodą datę ślubu oraz przydzielić do tego wydarzenia urzędnika, który poprowadzi ceremonię. W ustalonym dniu para młoda może zawrzeć związek małżeński.
+
+```mermaid
+flowchart TD;
+    id0((start)) --> id1[pobranie wniosku o stanie cywilnym];
+    id1 --> id2{czy kobieta niepełnoletnia?};
+    id2 -->|tak|id3[pobranie orzeczenie sądu];
+    id2 -->|nie|id4{czy obcokrajowiec/wcy?};
+    id3 -->id4;
+    id4 -->|nie|id5[wniesienie opłaty];
+    id4 -->|tak|id6[załatwienie tłumacza];
+    id6 -->id7[pobranie dokumentów z kraju pochodzenia obcokrajowca/ów];
+    id7 -->id5;
+
+    id5 -.->ida((start))
+
+```
 
 ### 4. Zgon
 <!-- Bartłomiej Krawczyk -->
