@@ -210,9 +210,9 @@ stateDiagram
     }
     state "Kierownik urzędu" as kierownik {
         state "Zarejestrowanie zgonu" as k1
-        state "Przygotowanie aktu zgonu" as k2
+        state "Wprowadzenie zgonu do systemu" as k2
         state "<<\system>>" as k2
-        state "Wprowadzenie zgonu do systemu" as k3
+        state "Przygotowanie aktu zgonu" as k3
         state "<<\system>>" as k3
         state "Automatyczne wymeldowanie oraz unieważnienie dokumentów" as k4
         state "<<\system>>" as k4
@@ -246,11 +246,25 @@ Rozdział dokumentu powinien opisywać specyfikację interakcji (dialogu) użytk
 
 ## Wyniki prac
 
-### Lista aktorów systemowych 
+### Lista aktorów systemowych
 lista użytkowników i systemów informatycznych `podejmujących interakcję` z projektowanym systemem.
+
+<!-- Do opisania -->
+Lista aktorów systemu informatycznego:
+- rodzice nowo narodzonego dziecka
+- personel szpitala - lekarze / położne
+- osoby zakochane
+- osoby bliskie zmarłego
+- urzędnicy
 
 ### Diagramy przypadków użycia systemu
 sporządzone zgodnie z notacją UML diagramy ilustrujące przypadki użycia systemu i ich związki z odpowiednimi aktorami, oraz zależności pomiędzy przypadkami użycia (**\<\<include\>\>**,**\<\<extend\>\>**, generalizacja/specjalizacja).
+
+1. Zgłoszenie narodzin dziecka przez personel medyczny
+2. Zgłoszenie narodzin dziecka przez rodziców dziecka
+3. Złożenie wniosku o wzięcie ślubu cywilnego
+4. Generowany harmonogram ślubów cywilnych
+5. Rejestracja zgonu przez urzędnika
 
 ### Specyfikacje przypadków użycia systemu
 specyfikacje przebiegu interakcji w obrębie poszczególnych przypadków użycia w postaci opisu scenariusza głównego (podstawowego), scenariuszy alternatywnych i punktów rozszerzeń.
