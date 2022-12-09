@@ -76,9 +76,38 @@ Wykonawcy czynności:
     - rejestruje urodzenie dziecka, deklaruje zameldowanie oraz przydziela numer PESEL
 
 ### 3. Ślub cywilny
-- przyszła panna młoda - jedna ze stron pragnąca zawrzeć związek małżeński
-- przyszły pan młody - druga ze stron pragnąca zaawrzeć związek małżeński
-- urzędnik USC - osoba prawna, mająca możliwość udzielenia ślubu cywilnego
+<!-- Gabriela Topczewska -->
+
+Wykonawcy czynności:
+- narzeczeni
+    - osoby planujące zawarcie związku małżeńskiego
+    - dokonują opłaty skarbowej
+    - przygotowują wymagane dokumenty:
+        - dokumenty tożsamości
+        - jeśli jest potrzebne – zezwolenie sądu na zawarcie małżeństwa,
+        - dowód opłaty skarbowej
+        - zezwolenie sądu na zawarcie małżeństwa - jeśli wymagane
+        - pełnomocnictwo - w przypadku korzystania z pełnomocnika
+        - akta stanu cywilnego
+    - udają się do urzędu dopełnić formalności na co najmniej miesiąc przed planowaną datą ślubu
+    - ustalają datę ślubu
+    - składają pisemne zapewnienie o nieistnieniu okoliczności wykluczających zawarcie małżeństwa
+    - pobierają się
+- urzędnik USC
+    - sprawdza poprawność i prawdziwość danych na dokumentach zaręczonych
+    - przygotowuje wymagane dokumenty i formularze do wypełnienia przez zaręczonych
+    - sprawdza dostępność dat ślubu
+    - rejestruje wybraną datę ślubu
+- organ sądowy
+    - udziela zgody sądu na zawarcie małżeństwa, kiedy prawdziwy jest którykolwiek z poniższych przypadków:
+        - kobieta jest niepełnoletnia, ale ukończyła 16 lat,
+        - osoby są ze sobą spowinowacone,
+        - osoba jest dotknięta chorobą psychiczną albo niedorozwojem umysłowym
+- tłumacz
+    - w przypadku obcojęzyczności któregoś z przyszłych małżonków obowiązkowo udziela tłumacznia w urzędzie
+    - w przypadku dokumentó osobistych obcojęzycznych
+- urzędnik udzielający ślubu
+    - udziela ślubu zaręczonym po wcześniejszym spełnieniu wszystkich wymogów formalnych przez małżonków
 
 ### 4. Zgon
 <!-- Bartłomiej Krawczyk -->
@@ -175,23 +204,109 @@ stateDiagram
 ```
 
 ### 3. Ślub cywilny
-
-Aby wziąć ślub cywilny wymagane jest dostarczenie odpowiedniej dokumentacji przez małżonków (dokumentacja ta może różnić się w zależności od wieku, czy pochodzenia przyszłych małżonków), złożenia podpisów i oświadczeń w urzędzie stanu cywilnego oraz wniesienie stosownej opłaty. Po dopełnieniu wymaganych formalności urzędnik może ustalić z parą młodą datę ślubu oraz przydzielić do tego wydarzenia urzędnika, który poprowadzi ceremonię. W ustalonym dniu para młoda może zawrzeć związek małżeński.
+<!-- Gabriela Topczewska -->
 
 ```mermaid
-flowchart TD;
-    id0((start)) --> id1[pobranie wniosku o stanie cywilnym];
-    id1 --> id2{czy kobieta niepełnoletnia?};
-    id2 -->|tak|id3[pobranie orzeczenie sądu];
-    id2 -->|nie|id4{czy obcokrajowiec/wcy?};
-    id3 -->id4;
-    id4 -->|nie|id5[wniesienie opłaty];
-    id4 -->|tak|id6[załatwienie tłumacza];
-    id6 -->id7[pobranie dokumentów z kraju pochodzenia obcokrajowca/ów];
-    id7 -->id5;
+stateDiagram
+    [*] --> a
+    state Narzeczeni {
+        direction LR;
+        state "Pobranie akt stanu cywilnego" as a
+        state "<<\system>>" as a
+        state if_sad_state <<choice>>
+        state "Złożenie wniosku o uzyskanie pozwolenia sądu" as wsa
+        state "Uzyskanie decyzji sądu" as sa
+        state if_zgoda <<choice>>
+        state if_pol_state <<choice>>
+        state "Złożenie dokumentów do przetłumaczenia" as p1
+        state "Odebranie przetłumaczonych dokumentów" as p2
+        state "Dokonanie opłaty skarbowej" as o
+        state "<<\system>>" as o
+        state "Złożenie dokumentów w urzędzie" as u
+        state "Zaproponowanie daty ślubu" as zd
+        state if_data_state <<choice>>
+        state "Potwierdzenie daty ślubu" as pd
+        state "Złożenie pisemnego oświadczenia o braku czynności wyłączających zawarcie małżeństwa" as osw
+        state "Zawarcie małżeństwa" as m
+        state "Odwołanie ślubu" as odw
 
-    id5 -.->ida((start))
+        a --> if_sad_state
+        if_sad_state --> if_pol_state : Czy zgoda sądu wymagana? - Nie
+        if_sad_state --> wsa : Czy zgoda sądu wymagana? - Tak
+        sa --> if_zgoda
+        if_zgoda --> if_pol_state : Czy zgoda wydana? - Tak
+        if_zgoda --> odw : Czy zgoda wydana? - Nie
+        if_pol_state --> o : Czy obie osoby polskojęzyczne? - Tak
+        if_pol_state --> p1 : Czy obie osoby polskojęzyczne? - Nie
+        p2 --> o
+        o --> u
+        if_data_state --> pd : Czy data pasuje? - Tak
+        if_data_state --> zd : Czy data pasuje? - Nie
+        pd --> osw
+        odw --> [*]
+    }
 
+    state Urzędnik {
+        direction LR
+        state "Sprawdzenie poprawności dokumentów narzeczonych" as pdok
+        state "<<\system>>" as pdok
+        state if_popr <<choice>>
+        state "Sprawdzenie dostępności daty" as d
+        state "<<\system>>" as d
+        state "Poinformowanie o dostępności daty" as dd
+        state "Zarejestrowanie daty ślubu" as zdat
+        state "<<\system>>" as zdat
+        state "Przydzielenie urzędnika do zawarcia ślubu" as um
+        state "<<\system>>" as um
+
+        pdok --> if_popr
+        d --> dd
+        zdat --> um
+    }
+    state Organ_sądowy {
+        direction LR
+        state "Otrzymanie wniosku o wydanie zgody sądu na zawarcie małżeństwa" as wzg
+        state "Wydanie decyzji sądu" as dec
+        wzg --> dec
+
+    }
+    state Tłumacz {
+        direction LR
+        state "Otrzymanie dokumentów do przetłumaczenia" as odok
+        state "Tłumaczenie i odesłanie przetłumaczonych dokumentów" as tdok
+
+        odok --> tdok
+
+    }
+    state Urzędnik_udzielający_ślubu {
+        direction LR
+        state "Otrzymanie przydziału do udzielenia ślubu" as op
+        state "<<\system>>" as op
+        state "Udzielenie ślubu" as slub
+        state "Zarejestrowanie nowego małżeństwa" as rej
+        state "<<\system>>" as rej
+
+        slub --> rej
+    }
+
+    state join_state <<join>>
+
+    wsa --> wzg
+    dec --> sa
+    p1 --> odok
+    tdok --> p2
+    u --> pdok
+    if_popr --> u : Czy dokumenty poprawne? - Nie
+    if_popr --> zd : Czy dokumenty poprawne? - Tak
+    zd --> d
+    dd --> if_data_state
+    pd --> zdat
+    um --> op
+    op --> join_state
+    osw --> join_state
+    join_state --> slub
+    slub --> m
+    m --> [*]
 ```
 
 ### 4. Zgon
