@@ -248,6 +248,8 @@ stateDiagram
     state "Kierownik urzędu" as kierownik {
         state "Przygotowanie protokołu" as k1
         state "<<\system>>" as k1
+        state if_accept <<choice>>
+        state "Wybór imienia prze urzędnika" as choice
         state "Zarejestrowanie urodzenia dziecka" as k2
         state "<<\system>>" as k2
         state "Zameldowanie dziecka" as k3
@@ -258,7 +260,10 @@ stateDiagram
         state "<<\system>>" as k5
         state "Przekazanie dokumentów rodzicom" as k6
 
-        k1 --> k2
+        k1 --> if_accept
+        if_accept --> k2: Zatwierdzenie imienia wybranego przez rodziców
+        if_accept --> choice: Nie zatwierdzenie nietypowego imienia
+        choice --> k2
         k2 --> k3
         k3 --> k4
         k4 --> k5
