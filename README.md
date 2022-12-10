@@ -50,6 +50,23 @@ lista wszystkich `wykonawców czynności` w ramach procesów biznesowych wraz z 
 
 ### 1. Zmiana imienia/nazwiska
 <!-- Mateusz Brzozowski -->
+Wykonawcy czynności:
+- osoba zmieniająca imię lub nazwisko
+    - chce zmienić imię lub nazwisko
+    - kto może:
+        - pełnoletni obywatel polski
+        - pełnoletni cudzoziemiec niemający obywatelstwa żadnego państwa, jeżeli ma w Polsce miejsce zamieszkania
+        - pełnoletni cudzoziemiec, który uzyskał w Polsce status uchodźcy
+        - osoba małoletnia, której rodzice zmienili nazwisko
+        - osoba niepełnoletnia, która ukończyła 13 rok życia na wniosek jednego z rodzica
+- rodzic
+    - składa wniosek o zmianę nazwiska albo imienia osoby niepełnoletniej
+    - wyraża zgodę na wniosek drugiego rodzica, jeżeli niepełnoletni ukończył 13 rok życia
+- kierownik urzędu stanu cywilnego
+    - odbiera wniosek o zmianę imienia lub nazwiska
+    - akceptuje bądź odrzuca wniosek
+    - przekazuje informacje do innych kierowników urzędów stanu cywilnego w celu nasienia zmiany do aktu urodzenia  i aktu małżeństwa
+    - wprowadza zmiany w aktach stanu cywilnego osób
 
 ### 2. Narodziny
 <!-- Bartłomiej Krawczyk -->
@@ -61,7 +78,7 @@ Wykonawcy czynności:
     - może to być:
         - matka lub ojciec dziecka, którzy mają ukończone 16 lat i nie zostali pozbawieni zdolności do czynności prawnych,
         - w pozostałych sytuacjach, na przykład jeśli matka dziecka ma mniej niż 16 lat lub została pozbawiona zdolności do czynności prawnych – dla przedstawiciela ustawowego (na przykład rodzica) lub opiekuna matki dziecka.
-        - Urodzenie dziecka można zgłosić samodzielnie lub może zrobić to pełnomocnik. 
+        - Urodzenie dziecka można zgłosić samodzielnie lub może zrobić to pełnomocnik.
     - należy przygotować:
         - dokument tożsamości
         - pełnomocnictwo (w przypadku skorzystania z pełnomocnika)
@@ -143,6 +160,64 @@ https://mermaid-js.github.io/mermaid/#/stateDiagram
 
 ### 1. Zmiana imienia/nazwiska
 <!-- Mateusz Brzozowski -->
+
+```mermaid
+stateDiagram
+    [*] --> z1 : osoba pełnoletnia
+    state "Osoba zmieniająca imię lub nazwisko" as zmieniający{
+        direction LR
+        state "Złożenie wniosku" as z1
+        state "Wskazanie miejsca sporządzenia aktu urodzenia" as z2
+        state "Wskazanie miejsca sporządzenia aktu małżeństwa" as z3
+        state if_mmalzenstwa <<choice>>
+        state if_pol <<choice>>
+        state "Złożenie wniosku o przeniesienie zagranicznych dokumentów stanu cywilnego" as z4
+    }
+
+    [*] --> p1 : osoba niepełnoletnia
+    p1 --> z2
+    z1 --> z2
+    z2 --> if_mmalzenstwa
+    if_mmalzenstwa --> z3 : posiadanie aktu małżeństwa
+    if_mmalzenstwa --> if_pol : brak aktu małżeństwa
+    if_pol --> z4 : brak polskiego obywatelstwa
+    if_pol --> k1 : obywatel polski
+    z4 --> k1
+    z3 --> if_pol
+
+    state "Pierwszy przedstawiciel ustawowy" as przedstawiciel1{
+        direction LR
+        state "Złożenie wniosku dotyczącego małoletniego dziecka" as p1
+    }
+
+    state "Kierownik urzędu realizujący zmianę imienia/nazwiska" as kierownik1{
+        direction LR
+        state "Sprawdzenie poprawności dokumentów" as k1
+        state if_akcept <<choice>>
+        state "Wydanie zgody" as k2
+        state "Przekazanie informacji o zmianie do pozostałych kierowników urzędu" as k3
+    }
+
+    k1 --> if_akcept
+    if_akcept --> k2 : zaakceptowanie wniosku
+    if_akcept --> [*] : odrzucenie wniosku
+    k2 --> k3
+    k3 --> k11
+
+    state "Kierownik urzędu zarządzający aktami" as kierownik2{
+        direction LR
+        state "Wprowadzenie zmian w akcie urodzenia" as k11
+        state if_malzenstwo <<choice>>
+        state "Wprowadzenie zmian w akcie akcie małżeństwa" as k12
+    }
+
+    k11 --> if_malzenstwo
+    if_malzenstwo --> k12 : posiadanie aktu małżeństwa
+    if_malzenstwo --> [*] : brak aktu małżeństwa
+
+    k12 --> [*]
+    k11 --> [*]
+```
 
 ### 2. Narodziny
 <!-- Bartłomiej Krawczyk -->
@@ -375,7 +450,7 @@ stateDiagram
 
 # Modelowanie przypadków użycia
 
-## Cel 
+## Cel
 Rozdział dokumentu powinien opisywać specyfikację interakcji (dialogu) użytkowników z projektowanym systemem informatycznym, umożliwiając zaprojektowanie jego interfejsu i sporządzenie makiety tego systemu.
 
 ## Wyniki prac
@@ -418,7 +493,7 @@ Rozdział dokumentu powinien opisywać specyfikację pojęć związanych z proje
 ## Wyniki prac
 
 ### Diagram klas
-diagram klas przedstawiający pojęcia dotyczące projektowanego systemu informatycznego, sporządzony zgodnie z notacją UML. Specyfikacje klas (pojęć) powinny obejmować specyfikacje atrybutów,dla których należy wyspecyfikować odpowiedni typ niezwiązany jednak z określoną platformą implementacji, np. LiczbaCałkowita, LiczbaRzeczywista, Data, Napis itp. Należy wyspecyfikować związki pomiędzy klasami: związek asocjacji (i ew. jej szczególne przypadki - agregację i kompozycję) wraz z licznością końców, oraz związek generalizacji/specjalizacji. 
+diagram klas przedstawiający pojęcia dotyczące projektowanego systemu informatycznego, sporządzony zgodnie z notacją UML. Specyfikacje klas (pojęć) powinny obejmować specyfikacje atrybutów,dla których należy wyspecyfikować odpowiedni typ niezwiązany jednak z określoną platformą implementacji, np. LiczbaCałkowita, LiczbaRzeczywista, Data, Napis itp. Należy wyspecyfikować związki pomiędzy klasami: związek asocjacji (i ew. jej szczególne przypadki - agregację i kompozycję) wraz z licznością końców, oraz związek generalizacji/specjalizacji.
 
 ### Specyfikacja klas
 zwięzły opis znaczenia poszczególnych klas i ich atrybutów.
