@@ -465,9 +465,10 @@ lista użytkowników i systemów informatycznych `podejmujących interakcję` z 
 
 <!-- Do opisania -->
 Lista aktorów systemu informatycznego:
+- osoba zmieniająca imię lub nazwisko
 - rodzice nowo narodzonego dziecka
 - personel szpitala - lekarze / położne
-- osoby zakochane
+- narzeczeni
 - osoby bliskie zmarłego
 - urzędnicy
 
