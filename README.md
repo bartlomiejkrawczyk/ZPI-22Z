@@ -524,7 +524,16 @@ Scenariusz główny:
 12. Użytkownik weryfikuje poprawność
 13. Wysłanie wniosku do urzędu
 
-Scenariusz alternatywny (rodzic nie pełnoletni) - nie wspierany przez system - nie mamy możliwości sprawdzenia
+Scenariusz alternatywny (rodzic nie pełnoletni)
+1. Logowanie użytkownika - FU1
+2. System wykrył, że użytkownik nie jest pełnoletni
+3. System wyświetla informację o konieczności pójścia do urzędu z pełnomocnikiem 
+
+Scenariusz alternatywny (użytkownik nie jest rodzicem)
+1. Logowanie użytkownika - FU1
+2. System prosi o zaznaczenie oświadczenia o byciu rodzicem
+3. Użytkownik nie jest rodzicem
+4. System informuje o konieczności pójścia do urzędu z pełnomocnikiem
 
 ### Projekty ekranów
 graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do wprowadzania danych lub wybierania opcji przez użytkownika w ramach danego przypadku użycia.
