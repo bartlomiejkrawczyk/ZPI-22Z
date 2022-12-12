@@ -475,14 +475,56 @@ Lista aktorów systemu informatycznego:
 ### Diagramy przypadków użycia systemu
 sporządzone zgodnie z notacją UML diagramy ilustrujące przypadki użycia systemu i ich związki z odpowiednimi aktorami, oraz zależności pomiędzy przypadkami użycia (**\<\<include\>\>**,**\<\<extend\>\>**, generalizacja/specjalizacja).
 
-1. Zgłoszenie narodzin dziecka przez personel medyczny
-2. Zgłoszenie narodzin dziecka przez rodziców dziecka
-3. Złożenie wniosku o wzięcie ślubu cywilnego
-4. Generowany harmonogram ślubów cywilnych
-5. Rejestracja zgonu przez urzędnika
+1. Logowanie użytkownika
+2. Zgłoszenie narodzin dziecka przez personel medyczny
+3. Zgłoszenie narodzin dziecka przez rodziców dziecka
+4. Rejestracja zgonu przez urzędnika
+5. Złożenie wniosku o wzięcie ślubu cywilnego
+6. Generowany harmonogram ślubów cywilnych
 
 ### Specyfikacje przypadków użycia systemu
 specyfikacje przebiegu interakcji w obrębie poszczególnych przypadków użycia w postaci opisu scenariusza głównego (podstawowego), scenariuszy alternatywnych i punktów rozszerzeń.
+
+**FU1**: Logowanie użytkownika
+
+Scenariusz główny:
+1. Użytkownik wybiera metodę logowania
+2. System pokazuje formularz z wybraną metodą
+3. Użytkownik wypełnia dane logowania
+4. System przenosi zalogowanego użytkownika do strony głównej
+
+Scenariusz alternatywny - użytkownik wybrał metodę uwierzytelnienia przez zewnętrzny system np. bank:
+1. Użytkownik wybiera metodę logowania przez zewnętrzny system
+2. System przekierowuje użytkownika do zewnętrznej strony
+3. Użytkownik loguje się
+4. Zewnętrzna strona przekierowuje ponownie do strony urzędu poprawnie zalogowanego użytkownika
+
+Scenariusz alternatywny - błędne dane logowania:
+
+1. takie jak w scenariuszu głównym
+2. takie jak w scenariuszu głównym
+3. Użytkownik podaje błędne dane logowania
+4. System sygnalizuje błędnie wypełnione dane
+5. Powrót do kroku 2.
+
+**FU3**: Zgłoszenie narodzin dziecka przez rodziców dziecka
+
+Scenariusz główny:
+1. Logowanie użytkownika - FU1
+2. System prosi o zaznaczenie oświadczenia o byciu rodzicem
+3. Użytkownik potwierdza wybór
+4. System wyświetla formularze z informacjami do uzupełnienia o rodzicach dziecka
+5. Użytkownik uzupełnienia informacje o ojcu dziecka
+6. Użytkownik uzupełnienia informacje o matce dziecka
+7. Użytkownik uzupełnienia informacje o dziecku
+8. Wybiera adres zameldowania dziecka
+9. System pyta o preferowany sposób kontaktu
+10. Użytkownik uzupełnienia informacje o preferowanym kontakcie
+11. System wyświetla podsumowanie wniosku
+12. Użytkownik weryfikuje poprawność
+13. Wysłanie wniosku do urzędu
+
+Scenariusz alternatywny (rodzic nie pełnoletni) - nie wspierany przez system - nie mamy możliwości sprawdzenia
 
 ### Projekty ekranów
 graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do wprowadzania danych lub wybierania opcji przez użytkownika w ramach danego przypadku użycia.
