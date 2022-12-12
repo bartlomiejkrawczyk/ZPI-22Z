@@ -233,7 +233,9 @@ stateDiagram
         direction LR
         state "Odbiór porodu" as l1
         state "Przygotowanie karty urodzenia" as l2
+        state "<<\system>>" as l2
         state "Przesłanie karty urodzenia do urzędu stanu cywilnego" as l3
+        state "<<\system>>" as l3
 
         l1 --> l2
         l2 --> l3
@@ -243,6 +245,7 @@ stateDiagram
 
     state Bliscy {
         state "Wizyta w urzędzie" as b1
+        state "<<\system>>" as b1
         state "Odbiór dokumentów" as b2
     }
     state "Kierownik urzędu" as kierownik {
@@ -478,9 +481,11 @@ sporządzone zgodnie z notacją UML diagramy ilustrujące przypadki użycia syst
 1. Logowanie użytkownika
 2. Zgłoszenie narodzin dziecka przez personel medyczny
 3. Zgłoszenie narodzin dziecka przez rodziców dziecka
-4. Rejestracja zgonu przez urzędnika
-5. Złożenie wniosku o wzięcie ślubu cywilnego
-6. Generowany harmonogram ślubów cywilnych
+4. Zatwierdzenie narodzin dziecka przez urzędnika
+5. Zgłoszenie zgonu przez bliskich zmarłego
+5. Rejestracja zgonu przez urzędnika
+6. Złożenie wniosku o wzięcie ślubu cywilnego
+7. Generowany harmonogram ślubów cywilnych
 
 ### Specyfikacje przypadków użycia systemu
 specyfikacje przebiegu interakcji w obrębie poszczególnych przypadków użycia w postaci opisu scenariusza głównego (podstawowego), scenariuszy alternatywnych i punktów rozszerzeń.
@@ -506,6 +511,15 @@ Scenariusz alternatywny - błędne dane logowania:
 3. Użytkownik podaje błędne dane logowania
 4. System sygnalizuje błędnie wypełnione dane
 5. Powrót do kroku 2.
+
+**FU2**: Zgłoszenie narodzin dziecka przez personel medyczny
+
+Scenariusz główny:
+1. Logowanie użytkownika - FU1
+2. System pokazuje formularz z kartą urodzenia do wypełnienia
+3. Lekarz odbierający poród wypełnia formularz
+4. Lekarz sprawdza poprawność formularza
+5. System wysyła kartę urodzenia do urzędu
 
 **FU3**: Zgłoszenie narodzin dziecka przez rodziców dziecka
 
@@ -534,6 +548,8 @@ Scenariusz alternatywny (użytkownik nie jest rodzicem)
 2. System prosi o zaznaczenie oświadczenia o byciu rodzicem
 3. Użytkownik nie jest rodzicem
 4. System informuje o konieczności pójścia do urzędu z pełnomocnikiem
+
+**FU4**: Zatwierdzenie narodzin dziecka przez urzędnika
 
 ### Projekty ekranów
 graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do wprowadzania danych lub wybierania opcji przez użytkownika w ramach danego przypadku użycia.
