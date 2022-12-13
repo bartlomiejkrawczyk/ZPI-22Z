@@ -550,7 +550,9 @@ Scenariusz alternatywny (użytkownik nie jest rodzicem)
 3. Użytkownik nie jest rodzicem
 4. System informuje o konieczności pójścia do urzędu z pełnomocnikiem
 
-**FU5**: Złożenie wniosku o wzięcie ślubu cywilnego
+**FU4**: Zatwierdzenie narodzin dziecka przez urzędnika
+
+**FU7**: Złożenie wniosku o wzięcie ślubu cywilnego
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
@@ -602,7 +604,7 @@ Scenariusz alternatywny - opłata dokonywana w urzędzie:
 10. System informuje użytkownika o kolejnych krokach, które ten musi podjąć po złożeniu wniosku.
 11. Wniosek zostaje złożony w urzędzie.
 
-**FU6**: Generowany harmonogram ślubów cywilnych
+**FU8**: Generowany harmonogram ślubów cywilnych
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
@@ -615,14 +617,12 @@ Scenariusz alternatywny - użytkownik nie jest urzędnikiem:
 1. Logowanie użytkownika - FU1
 2. System wykrywa, że użytkownik nie jest urzędnikiem - brak możliwości wygenerowania harmonogramu.
 
-**FU7**: Złożenie wniosku o zmianę imienia/nazwiska.
+**FU9**: Złożenie wniosku o zmianę imienia/nazwiska.
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
 
 Scenariusz alternatywny:
-
-**FU4**: Zatwierdzenie narodzin dziecka przez urzędnika
 
 ### Projekty ekranów
 graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do wprowadzania danych lub wybierania opcji przez użytkownika w ramach danego przypadku użycia.
