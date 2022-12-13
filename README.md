@@ -481,6 +481,7 @@ sporządzone zgodnie z notacją UML diagramy ilustrujące przypadki użycia syst
 4. Rejestracja zgonu przez urzędnika
 5. Złożenie wniosku o wzięcie ślubu cywilnego
 6. Generowany harmonogram ślubów cywilnych
+7. Złożenie wniosku o zmianę imienia/nazwiska.
 
 ### Specyfikacje przypadków użycia systemu
 specyfikacje przebiegu interakcji w obrębie poszczególnych przypadków użycia w postaci opisu scenariusza głównego (podstawowego), scenariuszy alternatywnych i punktów rozszerzeń.
@@ -534,6 +535,78 @@ Scenariusz alternatywny (użytkownik nie jest rodzicem)
 2. System prosi o zaznaczenie oświadczenia o byciu rodzicem
 3. Użytkownik nie jest rodzicem
 4. System informuje o konieczności pójścia do urzędu z pełnomocnikiem
+
+**FU5**: Złożenie wniosku o wzięcie ślubu cywilnego
+
+Scenariusz główny:
+1. Logowanie użytkownika - FU1
+2. Wybranie opcji złożenia wniosku o wzięcie ślubu cywilnego.
+3. System wyświetla formularze dotyczące osób chcących zawrzeć związek małżeński.
+4. Użytkownik wypełnia informacje o sobie oraz przyszłym współmałżonku.
+5. Użytkownik wysyła prośbę o dołączenie aktów stanu cywilnego swojego oraz przyszłego współmałżonka do wniosku o zawarcie małżeństwa.
+6. System dołącza akta do wniosku.
+7. Weryfikacja poprawności danych przez użytkownika.
+8. System pyta, czy użytkownik chce dokonać opłaty za wniosek teraz.
+9. Użytkownik dokonuje opłaty.
+10. System informuje użytkownika o kolejnych krokach, które ten musi podjąć po złożeniu wniosku.
+11. Wniosek zostaje złożony w urzędzie.
+
+Scenariusz alternatywny - przynajmniej 1 osoba jest obcokrajowcem:
+1. Logowanie użytkownika - FU1
+2. Wybranie opcji złożenia wniosku o wzięcie ślubu cywilnego.
+3. System wyświetla formularze dotyczące osób chcących zawrzeć związek małżeński.
+4. Użytkownik wypełnia informacje o sobie oraz przyszłym współmałżonku.
+5. Użytkownik zaznacza, która z osób pochodzi spoza Polski.
+6. System umożliwia dołączenie dokumentów z innego kraju.
+7. System oznacza dokumenty jako obce.
+8. Weryfikacja poprawności danych przez użytkownika.
+9. System pyta, czy użytkownik chce dokonać opłaty za wniosek teraz.
+10. Użytkownik dokonuje opłaty.
+11. System informuje użytkownika o kolejnych krokach, które ten musi podjąć po złożeniu wniosku.
+12. Wniosek zostaje złożony w urzędzie.
+
+Scenariusz alternatywny - wymagana zgoda sądu na zawarcie małżeństwa:
+1. Logowanie użytkownika - FU1
+2. Wybranie opcji złożenia wniosku o wzięcie ślubu cywilnego.
+3. System wyświetla formularze dotyczące osób chcących zawrzeć związek małżeński.
+4. Użytkownik wypełnia informacje o sobie oraz przyszłym współmałżonku.
+5. Użytkownik wysyła prośbę o dołączenie aktów stanu cywilnego swojego oraz przyszłego współmałżonka do wniosku o zawarcie małżeństwa.
+6. System wykrywa, że potrzebna jest zgoda sądu na zawarcie małżeństwa.
+7. System informuje o konieczności wybrania się do urzędu w celu wypełnienia niezbędnych formalności.
+
+Scenariusz alternatywny - opłata dokonywana w urzędzie:
+1. Logowanie użytkownika - FU1
+2. Wybranie opcji złożenia wniosku o wzięcie ślubu cywilnego.
+3. System wyświetla formularze dotyczące osób chcących zawrzeć związek małżeński.
+4. Użytkownik wypełnia informacje o sobie oraz przyszłym współmałżonku.
+5. Użytkownik wysyła prośbę o dołączenie aktów stanu cywilnego swojego oraz przyszłego współmałżonka do wniosku o zawarcie małżeństwa.
+6. System dołącza akta do wniosku.
+7. Weryfikacja poprawności danych przez użytkownika.
+8. System pyta, czy użytkownik chce dokonać opłaty za wniosek teraz.
+9. Użytkownik wybiera opcję zapłaty w urzędzie.
+10. Wniosek jest oznaczany jako nieopłacony.
+10. System informuje użytkownika o kolejnych krokach, które ten musi podjąć po złożeniu wniosku.
+11. Wniosek zostaje złożony w urzędzie.
+
+**FU6**: Generowany harmonogram ślubów cywilnych
+
+Scenariusz główny:
+1. Logowanie użytkownika - FU1
+2. Użytkownik wybiera opcję generowania harmonogramu.
+3. Użytkownik wybiera zakres dat, który go interesuje.
+4. Użytkownik zatwierdza wybór.
+5. System generuje harmonogram ślubów do pliku pdf.
+
+Scenariusz alternatywny - użytkownik nie jest urzędnikiem:
+1. Logowanie użytkownika - FU1
+2. System wykrywa, że użytkownik nie jest urzędnikiem - brak możliwości wygenerowania harmonogramu.
+
+**FU7**: Złożenie wniosku o zmianę imienia/nazwiska.
+
+Scenariusz główny:
+1. Logowanie użytkownika - FU1
+
+Scenariusz alternatywny:
 
 ### Projekty ekranów
 graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do wprowadzania danych lub wybierania opcji przez użytkownika w ramach danego przypadku użycia.
