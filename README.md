@@ -521,6 +521,8 @@ specyfikacje przebiegu interakcji w obrębie poszczególnych przypadków użycia
 
 **FU1**: Logowanie użytkownika
 
+> Logowanie następuje poprzez urzędowy system - profil zaufany / bank / aplikacja mObywatel / eDowód
+
 Scenariusz główny:
 1. Użytkownik wybiera metodę logowania
 2. System pokazuje formularz z wybraną metodą
