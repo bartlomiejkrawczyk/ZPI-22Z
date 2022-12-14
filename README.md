@@ -482,12 +482,11 @@ sporządzone zgodnie z notacją UML diagramy ilustrujące przypadki użycia syst
 2. Zgłoszenie narodzin dziecka przez personel medyczny
 3. Zgłoszenie narodzin dziecka przez rodziców dziecka
 4. Zatwierdzenie narodzin dziecka przez urzędnika
-5. Zgłoszenie zgonu przez bliskich zmarłego
-6. Rejestracja zgonu przez urzędnika
-7. Złożenie wniosku o wzięcie ślubu cywilnego
-8. Generowany harmonogram ślubów cywilnych
-9. Złożenie wniosku o zmianę imienia/nazwiska
-10. Rozpatrzenie wniosku o zmianę imienia/nazwiska.
+5. Rejestracja zgonu przez urzędnika
+6. Złożenie wniosku o wzięcie ślubu cywilnego
+7. Generowany harmonogram ślubów cywilnych
+8. Złożenie wniosku o zmianę imienia/nazwiska
+9. Rozpatrzenie wniosku o zmianę imienia/nazwiska.
 
 ### Specyfikacje przypadków użycia systemu
 specyfikacje przebiegu interakcji w obrębie poszczególnych przypadków użycia w postaci opisu scenariusza głównego (podstawowego), scenariuszy alternatywnych i punktów rozszerzeń.
@@ -553,7 +552,29 @@ Scenariusz alternatywny (użytkownik nie jest rodzicem)
 
 **FU4**: Zatwierdzenie narodzin dziecka przez urzędnika
 
-**FU7**: Złożenie wniosku o wzięcie ślubu cywilnego
+1. Logowanie użytkownika - FU1
+2. Urzędnik przygotowuje protokół
+3. System wyświetla otrzymane dane dziecka
+4. Urzędnik weryfikuje poprawność danych oraz czy wybrane imię jest poprawne dla dziecka
+5. Urzędnik zatwierdza formularz
+6. Urzędnik wprowadza dane zameldowania dziecka
+7. System generuje kolejny numer PESEL
+8. Urzędnik zatwierdza formularz
+9. System generuje akt urodzenia
+
+Scenariusz alternatywny (urzędnik nie zatwierdza imienia dziecka)
+- kroki 1-4 oraz 6-9 są takie same
+5. Urzędnik wymyśla nowe imię oraz wprowadza je do systemu
+
+**FU5**: Rejestracja zgonu przez urzędnika
+
+1. Logowanie użytkownika - FU1
+2. Urzędnik wprowadza zgon do systemu
+3. System generuje akt zgonu
+4. Urzędnik weryfikuje dane oraz zatwierdza formularz
+5. System automatycznie wymeldowuje zmarłego oraz unieważnia dokumenty
+
+**FU6**: Złożenie wniosku o wzięcie ślubu cywilnego
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
@@ -605,7 +626,7 @@ Scenariusz alternatywny - opłata dokonywana w urzędzie:
 10. System informuje użytkownika o kolejnych krokach, które ten musi podjąć po złożeniu wniosku.
 11. Wniosek zostaje złożony w urzędzie.
 
-**FU8**: Generowany harmonogram ślubów cywilnych
+**FU7**: Generowany harmonogram ślubów cywilnych
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
@@ -618,7 +639,7 @@ Scenariusz alternatywny - użytkownik nie jest urzędnikiem:
 1. Logowanie użytkownika - FU1
 2. System wykrywa, że użytkownik nie jest urzędnikiem - brak możliwości wygenerowania harmonogramu.
 
-**FU9**: Złożenie wniosku o zmianę imienia/nazwiska.
+**FU8**: Złożenie wniosku o zmianę imienia/nazwiska.
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
@@ -638,7 +659,7 @@ Scenariusz alternatywny - użytkownik niepełnoletni:
 3. System rozpoznaje, że użytkownik jest niepełnoletni.
 4. Wyświetlenie informacji o braku możliwości złożenia wniosku.
 
-**FU10** Rozpatrzenie wniosku o zmianę imienia/nazwiska. 
+**FU9** Rozpatrzenie wniosku o zmianę imienia/nazwiska. 
 1. Logowanie użytkownika - FU1
 2. Otrzymanie informacji o nowym wniosku.
 3. Sprawdzenie poprawności wniosku.
