@@ -487,6 +487,7 @@ sporządzone zgodnie z notacją UML diagramy ilustrujące przypadki użycia syst
 7. Złożenie wniosku o wzięcie ślubu cywilnego
 8. Generowany harmonogram ślubów cywilnych
 9. Złożenie wniosku o zmianę imienia/nazwiska
+10. Rozpatrzenie wniosku o zmianę imienia/nazwiska.
 
 ### Specyfikacje przypadków użycia systemu
 specyfikacje przebiegu interakcji w obrębie poszczególnych przypadków użycia w postaci opisu scenariusza głównego (podstawowego), scenariuszy alternatywnych i punktów rozszerzeń.
@@ -621,8 +622,30 @@ Scenariusz alternatywny - użytkownik nie jest urzędnikiem:
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
+2. Użytkownik wybiera opcję złożenia wniosku o zmianę imienia/nazwiska.
+3. Wybó kogo dotyczy wniosek (użytkownika, czy małoletniego potomka).
+4. Wypełnienie informacji nt. miejsca sporządzenia aktu urodzenia.
+5. Jeśli dotyczy - wypełnienie informacji nt. miejsca sporządzenia aktu małżeństwa.
+6. Jeśli dotyczy - złożenie wniosku o przeniesienie zagranicznych dokumentów stanu cywilnego.
+7. Załączenie wymaganych dokumentów.
+8. Wypełnienie informacji dot. motywacji do zmiany imienia/nazwiska.
+9. Zatwierdzenie poprawności informacji przez użytkownika.
+10. Wysłanie wniosku.
 
-Scenariusz alternatywny:
+Scenariusz alternatywny - użytkownik niepełnoletni:
+1. Logowanie użytkownika - FU1
+2. Użytkownik wybiera opcję złożenia wniosku o zmianę imienia/nazwiska.
+3. System rozpoznaje, że użytkownik jest niepełnoletni.
+4. Wyświetlenie informacji o braku możliwości złożenia wniosku.
+
+**FU10** Rozpatrzenie wniosku o zmianę imienia/nazwiska. 
+1. Logowanie użytkownika - FU1
+2. Otrzymanie informacji o nowym wniosku.
+3. Sprawdzenie poprawności wniosku.
+4. Zatwierdzenie wniosku.
+5. Rozesłanie przez system informacji do wnioskodawców o pomyślnym zakończeniu rozpatrzenia wniosku.
+6. Rozesłanie przez system informacji do innych urzędów o zmianie danych osobowych wnioskodawcy.
+7. Uaktualnienie przez system akt stanu cywilnego wnioskodawcy.
 
 ### Projekty ekranów
 graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do wprowadzania danych lub wybierania opcji przez użytkownika w ramach danego przypadku użycia.
