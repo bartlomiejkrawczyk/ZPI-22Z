@@ -472,12 +472,12 @@ Lista aktorów systemu informatycznego:
 - rodzice nowo narodzonego dziecka
 - personel szpitala - lekarze / położne
 - narzeczeni
-- osoby bliskie zmarłego
 - urzędnicy
 
 ### Diagramy przypadków użycia systemu
 sporządzone zgodnie z notacją UML diagramy ilustrujące przypadki użycia systemu i ich związki z odpowiednimi aktorami, oraz zależności pomiędzy przypadkami użycia (**\<\<include\>\>**,**\<\<extend\>\>**, generalizacja/specjalizacja).
 
+Funkcje systemowe:
 1. Logowanie użytkownika
 2. Zgłoszenie narodzin dziecka przez personel medyczny
 3. Zgłoszenie narodzin dziecka przez rodziców dziecka
@@ -487,6 +487,34 @@ sporządzone zgodnie z notacją UML diagramy ilustrujące przypadki użycia syst
 7. Generowany harmonogram ślubów cywilnych
 8. Złożenie wniosku o zmianę imienia/nazwiska
 9. Rozpatrzenie wniosku o zmianę imienia/nazwiska.
+
+```mermaid
+flowchart LR
+    o1[Osoba zmieniająca imię lub nazwisko]
+    o2[Rodzic nowo narodzonego dziecka]
+    o3[Personel szpitala - lekarz / położna]
+    o4[Narzeczeni]
+    o5[Urzędnik]
+
+    fu1[Logowanie użytkownika]
+    fu2[Zgłoszenie narodzin dziecka przez personel medyczny]
+    fu3[Zgłoszenie narodzin dziecka przez rodziców dziecka]
+    fu4[Zatwierdzenie narodzin dziecka przez urzędnika]
+    fu5[Rejestracja zgonu przez urzędnika]
+    fu6[Złożenie wniosku o wzięcie ślubu cywilnego]
+    fu7[Generowany harmonogram ślubów cywilnych]
+    fu8[Złożenie wniosku o zmianę imienia/nazwiska]
+    fu9[Rozpatrzenie wniosku o zmianę imienia/nazwiska]
+
+    o1 --> fu8 -.<<\include>>.-> fu1
+    o2 --> fu3 -.<<\include>>.-> fu1
+    o3 --> fu2 -.<<\include>>.-> fu1
+    o4 --> fu6 -.<<\include>>.-> fu1
+    o5 --> fu4 -.<<\include>>.-> fu1
+    o5 --> fu5 -.<<\include>>.-> fu1
+    o5 --> fu7 -.<<\include>>.-> fu1
+    o5 --> fu9 -.<<\include>>.-> fu1
+```
 
 ### Specyfikacje przypadków użycia systemu
 specyfikacje przebiegu interakcji w obrębie poszczególnych przypadków użycia w postaci opisu scenariusza głównego (podstawowego), scenariuszy alternatywnych i punktów rozszerzeń.
