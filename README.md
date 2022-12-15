@@ -167,11 +167,15 @@ stateDiagram
     state "Osoba zmieniająca imię lub nazwisko" as zmieniający{
         direction LR
         state "Złożenie wniosku" as z1
+        state "<<\system>>" as z1
         state "Wskazanie miejsca sporządzenia aktu urodzenia" as z2
+        state "<<\system>>" as z2
         state "Wskazanie miejsca sporządzenia aktu małżeństwa" as z3
+        state "<<\system>>" as z3
         state if_mmalzenstwa <<choice>>
         state if_pol <<choice>>
         state "Złożenie wniosku o przeniesienie zagranicznych dokumentów stanu cywilnego" as z4
+        state "<<\system>>" as z4
     }
 
     [*] --> p1 : osoba niepełnoletnia
@@ -193,8 +197,10 @@ stateDiagram
     state "Kierownik urzędu realizujący zmianę imienia/nazwiska" as kierownik1{
         direction LR
         state "Sprawdzenie poprawności dokumentów" as k1
+        state "<<\system>>" as k1
         state if_akcept <<choice>>
         state "Wydanie zgody" as k2
+        state "<<\system>>" as k2
         state "Przekazanie informacji o zmianie do pozostałych kierowników urzędu" as k3
     }
 
@@ -701,9 +707,32 @@ Scenariusz alternatywny - użytkownik niepełnoletni:
 ### Projekty ekranów
 graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do wprowadzania danych lub wybierania opcji przez użytkownika w ramach danego przypadku użycia.
 
-<!-- Mateusz Brzozowski -->
 
 **Uwaga:** Dla każdego przypadku użycia na diagramie należy opracować jego specyfikację oraz projekt ekranu (jeśli z przypadkiem użycia wiąże się wprowadzanie danych, wybieranie opcji).
+
+<!-- Mateusz Brzozowski -->
+**Logowanie**
+
+![](./ekrany/Wireframe%20-%206.png)
+
+![](./ekrany/Wireframe%20-%207.png)
+
+**Zgłoszenie narodzin dziecka przez personel medyczny**
+
+![](./ekrany/Wireframe%20-%2010.png)
+
+**Zgłoszenie narodzin dziecka przez rodziców dziecka**
+
+![](./ekrany/Wireframe%20-%202.png)
+![](./ekrany/Wireframe%20-%201.png)
+![](./ekrany/Wireframe%20-%203.png)
+![](./ekrany/Wireframe%20-%204.png)
+![](./ekrany/Wireframe%20-%205.png)
+![](./ekrany/Wireframe%20-%208.png)
+
+**Zatwierdzenie narodzin dziecka przez urzędnika**
+
+![](./ekrany/Wireframe%20-%209.png)
 
 # Modelowanie pojęć systemu
 
