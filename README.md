@@ -835,6 +835,7 @@ classDiagram
 
 
     Wydarzenie --o Osoba : Osoby potrzebne na wydarzenie
+    Wydarzenie --o Adres : Miejsce wydarzenia
 ```
 
 ### Specyfikacja klas
