@@ -21,7 +21,6 @@ Topczewska Gabriela
 
 - przyjmowanie oświadczeń o zawarciu związku małżeńskiego
 
-
 - rejestracja
 
 ## Założenia
@@ -742,7 +741,101 @@ Rozdział dokumentu powinien opisywać specyfikację pojęć związanych z proje
 ## Wyniki prac
 
 ### Diagram klas
-diagram klas przedstawiający pojęcia dotyczące projektowanego systemu informatycznego, sporządzony zgodnie z notacją UML. Specyfikacje klas (pojęć) powinny obejmować specyfikacje atrybutów,dla których należy wyspecyfikować odpowiedni typ niezwiązany jednak z określoną platformą implementacji, np. LiczbaCałkowita, LiczbaRzeczywista, Data, Napis itp. Należy wyspecyfikować związki pomiędzy klasami: związek asocjacji (i ew. jej szczególne przypadki - agregację i kompozycję) wraz z licznością końców, oraz związek generalizacji/specjalizacji.
+diagram klas przedstawiający pojęcia dotyczące projektowanego systemu informatycznego, sporządzony zgodnie z notacją UML. Specyfikacje klas (pojęć) powinny obejmować specyfikacje atrybutów, dla których należy wyspecyfikować odpowiedni typ niezwiązany jednak z określoną platformą implementacji, np. LiczbaCałkowita, LiczbaRzeczywista, Data, Napis itp. Należy wyspecyfikować związki pomiędzy klasami: związek asocjacji (i ew. jej szczególne przypadki - agregację i kompozycję) wraz z licznością końców, oraz związek generalizacji/specjalizacji.
+
+
+```mermaid
+classDiagram
+    class Osoba {
+        Napis pesel
+
+        Napis imię
+        Napis drugieImię
+        Napis kolejneImiona
+        Napis nazwisko
+        Napis nazwiskoRodowe
+
+        Data dataUrodzenia
+        Adres miejsceUrodzenia
+
+        Napis obywatelstwo
+
+        Adres zameldowanie
+        Adres miejsceZamieszkania
+
+        Napis wykształcenie
+    }
+
+    class Dziecko {
+        Typ płeć
+
+
+        LiczbaZmiennoPrzecinkowa czasTrwaniaCiąży
+
+        LiczbaZmiennoPrzecinkowa ciężarCiałaPrzyUrodzeniu
+        LiczbaZmiennoPrzecinkowa długośćCiałaPrzyUrodzeniu
+
+
+        LiczbaZmiennoPrzecinkowa skalaApgar1min
+        LiczbaZmiennoPrzecinkowa skalaApgar5min
+        LiczbaZmiennoPrzecinkowa skalaApgar10min
+
+        Osoba ojciec
+        Osoba matka
+
+        Adres miejsceSporządzeniaAktuUrodzenia
+        Napis oznaczeniAktuUrodzenia
+    }
+
+    class Adres {
+        Napis nazwaPlacówki
+        Napis miejscowość
+        Napis województwo
+        Napis powiat
+        Napis gmina
+        
+        Napis ulica
+        Napis adresBudynku
+        Napis adresMieszkania
+    }
+
+    class Wniosek {
+        Napis typWniosku
+        Adres urząd
+
+        List~Osoba~ wnioskodawcy
+        List~Osoba~ osobyZgłaszane
+
+        List~Wydarzenie~ zaplanowaneWydarzenia
+
+        Napis emailKontaktowy
+        Napis telefonKontaktowy
+    }
+
+    class Wydarzenie {
+        Napis typWydarzenia
+        Adres adresWydarzenia
+        Napis nazwa wydarzenia
+        Data dataWydarzenia
+
+        List~Osoba~ osobyWymagane
+    }
+
+    Osoba <|-- Dziecko
+
+    Wniosek --o Osoba : Wnioskodawcy
+    Wniosek --o Osoba : Osoby Zgłaszane
+
+    Wniosek --o Adres : Urząd Stanu Cywilnego
+
+    Osoba --o Adres : Miejsce Zamieszkania
+    Osoba --o Adres : Miejsce Zameldowania
+
+    Wniosek --o Wydarzenie : Zaplanowane Wydarzenia
+
+
+    Wydarzenie --o Osoba : Osoby potrzebne na wydarzenie
+```
 
 ### Specyfikacja klas
 zwięzły opis znaczenia poszczególnych klas i ich atrybutów.
