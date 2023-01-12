@@ -465,8 +465,9 @@ Lista aktorów systemu informatycznego:
 - personel szpitala - lekarze / położne
 - narzeczeni
 - Urzędnik rejestrujący narodziny dziecka
+- Urzędnik rejestrujący zgon
 - Urzędnik realizujący zmianę imienia/nazwiska
-- Urzędnik rejestrujący zawarcie ślubu
+- Urzędnik zatwierdzający zawarcie ślubu
 - Urzędnik udzielający ślubu
 
 ### Diagramy przypadków użycia systemu
@@ -474,50 +475,20 @@ sporządzone zgodnie z notacją UML diagramy ilustrujące przypadki użycia syst
 
 Funkcje systemowe:
 1. Logowanie użytkownika
-2. Zgłoszenie narodzin dziecka przez personel medyczny
-3. Zgłoszenie narodzin dziecka przez rodziców dziecka
-4. Zatwierdzenie narodzin dziecka przez urzędnika
-5. Rejestracja zgonu przez urzędnika
-6. Złożenie wniosku o wzięcie ślubu cywilnego
-7. Generowany harmonogram ślubów cywilnych
-8. Złożenie wniosku o zmianę imienia/nazwiska
-9. Rozpatrzenie wniosku o zmianę imienia/nazwiska.
+2. Przeglądanie katalogu z dostępnymi wnioskami
+3. Wyszukiwanie wniosku
+4. Zgłoszenie porodu dziecka
+5. Zgłoszenie narodzin dziecka
+6. Zatwierdzenie narodzin dziecka
+7. Rejestracja zgonu
+8. Złożenie wniosku o wzięcie ślubu cywilnego
+9. Rozpatrzenie wniosku o wzięcie ślubu cywilnego
+10. Generacja harmonogramu odprawianych ślubów
+11. Rejestracja nowego małżeństwa
+12. Złożenie wniosku o zmianę imienia/nazwiska
+13. Rozpatrzenie wniosku o zmianę imienia/nazwiska
 
-**TODO:** To nie jest notacja diagramu use-case...
-
-```mermaid
-flowchart LR
-    o1[Osoba zmieniająca imię lub nazwisko]
-    o2[Rodzic nowo narodzonego dziecka]
-    o3[Personel szpitala - lekarz / położna]
-    o4[Narzeczeni]
-    o5[Kierownik urzędu - rejestrujący narodziny dziecka]
-    o6[Kierownik urzędu - zarządzający aktami zmiany imienia/nazwiska]
-    o7[Kierownik urzędu - realizujący zmianę imienia/nazwiska]
-    o8[Kierownik urzędu - rejestrujący zawarcie ślubu]
-    o9[Urzędnik - udzielający ślubu]
-
-
-    fu1[Logowanie użytkownika]
-    fu2[Zgłoszenie narodzin dziecka przez personel medyczny]
-    fu3[Zgłoszenie narodzin dziecka przez rodziców dziecka]
-    fu4[Zatwierdzenie narodzin dziecka przez urzędnika]
-    fu5[Rejestracja zgonu przez urzędnika]
-    fu6[Złożenie wniosku o wzięcie ślubu cywilnego]
-    fu7[Generowany harmonogram ślubów cywilnych]
-    fu8[Złożenie wniosku o zmianę imienia/nazwiska]
-    fu9[Rozpatrzenie wniosku o zmianę imienia/nazwiska]
-
-    o1 --> fu8 -.<<\include>>.-> fu1
-    o2 --> fu3 -.<<\include>>.-> fu1
-    o3 --> fu2 -.<<\include>>.-> fu1
-    o4 --> fu6 -.<<\include>>.-> fu1
-    o5 --> fu4 -.<<\include>>.-> fu1
-    o5 --> fu5 -.<<\include>>.-> fu1
-    o5 --> fu7 -.<<\include>>.-> fu1
-    o5 --> fu9 -.<<\include>>.-> fu1
-```
-
+![](./use-case.png)
 
 ### Specyfikacje przypadków użycia systemu
 specyfikacje przebiegu interakcji w obrębie poszczególnych przypadków użycia w postaci opisu scenariusza głównego (podstawowego), scenariuszy alternatywnych i punktów rozszerzeń.
@@ -563,7 +534,7 @@ Scenariusz alternatywny - logowanie urzędnika
 3. Urzędnik wpisuje frazę w okno wyszukiwania
 4. System zwraca wszystkie wnioski z dostępną frazą
 
-**FU4**: Zgłoszenie narodzin dziecka przez personel medyczny
+**FU4**: Zgłoszenie porodu dziecka przez personel medyczny
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
@@ -573,7 +544,7 @@ Scenariusz główny:
 5. Lekarz sprawdza poprawność formularza
 6. System wysyła kartę urodzenia do urzędu
 
-**FU5**: Zgłoszenie narodzin dziecka przez rodziców dziecka
+**FU5**: Zgłoszenie narodzin dziecka
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
@@ -602,7 +573,7 @@ Scenariusz alternatywny (użytkownik nie jest rodzicem)
 3. Użytkownik nie jest rodzicem
 4. System informuje o konieczności pójścia do urzędu z pełnomocnikiem
 
-**FU6**: Zatwierdzenie narodzin dziecka przez urzędnika
+**FU6**: Zatwierdzenie narodzin dziecka
 
 Scenariusz główny:
 1. Urzędnik przyjmuje rodziców i wyszukuje odpowiedni wniosek - FU3
@@ -624,7 +595,7 @@ Scenariusz alternatywny (mija 21 dni od zgłoszenia narodzin dziecka, a rodzice 
 - kroki 3 - 10 takie same
 1. Urzędnik przegląda dostępne zgłoszenia i filtruje nieobsłużone zgłoszenia sprzed 21 dni - FU2
 
-**FU7**: Rejestracja zgonu przez urzędnika
+**FU7**: Rejestracja zgonu
 
 1. Logowanie urzędnika - FU1
 2. Urzędnik wybiera opcję wprowadzenia zgonu do systemu
@@ -696,7 +667,7 @@ Scenariusz alternatywny - opłata dokonywana w urzędzie:
 7. Urzędnik wprowadza datę
 8. System przydziela dostępnego urzędnika udzielającego ślubu
 
-**FU10**: Generowany harmonogram ślubów cywilnych
+**FU10**: Generacja harmonogramu odprawianych ślubów cywilnych
 
 Scenariusz główny:
 1. Logowanie urzędnika - FU1
