@@ -13,16 +13,6 @@ Krawczyk Bartłomiej
 Topczewska Gabriela
 ```
 
-## Czym się zajmuje?
-
-- rejestracja: urodzeń, małżeństw, zgonów
-
-- dokonywanie zmian w księgach na podstawie
-
-- przyjmowanie oświadczeń o zawarciu związku małżeńskiego
-
-- rejestracja
-
 ## Założenia
 
 Dokumentacja analityczna powstająca w ramach projektu informatycznego stanowi środek komunikacji i efekt porozumienia pomiędzy przyszłym użytkownikiem tego systemu a zespołem informatycznym: projektantami i programistami.
@@ -71,8 +61,6 @@ Wykonawcy czynności:
 <!-- Bartłomiej Krawczyk -->
 
 Wykonawcy czynności:
-- nowo narodzone dziecko
-    - rodzi się
 - rodzic / pełnomocnik
     - może to być:
         - matka lub ojciec dziecka, którzy mają ukończone 16 lat i nie zostali pozbawieni zdolności do czynności prawnych,
@@ -129,8 +117,6 @@ Wykonawcy czynności:
 <!-- Bartłomiej Krawczyk -->
 
 Wykonawcy czynności:
-- zmarły
-    - umiera :o
 - lekarz
     - lekarz może stwierdzić zgon na podstawie osobiście wykonanych badań i ustaleń, zaś w uzasadnionych przypadkach lekarz (z wyłączeniem lekarza dentysty) może uzależnić wystawienie karty zgonu od przeprowadzenia sekcji zwłok
     - wystawia kartę zgonu
@@ -229,11 +215,7 @@ stateDiagram
 
 ```mermaid
 stateDiagram
-    [*] --> r1
-    state Dziecko {
-        direction LR
-        state "Rodzi się" as r1
-    }
+    [*] --> l1
     state Lekarz {
         direction LR
         state "Odbiór porodu" as l1
@@ -245,8 +227,6 @@ stateDiagram
         l1 --> l2
         l2 --> l3
     }
-
-    r1 --> l1
 
     state Bliscy {
         state "Wizyta w urzędzie" as b1
@@ -282,7 +262,7 @@ stateDiagram
       l3 --> fork_state
       fork_state --> b1
 
-      state join_state <<join>>
+    state join_state <<join>>
       b1 --> join_state: 21 Dni
       join_state --> k1
       fork_state --> join_state: 3 Dni
@@ -315,7 +295,6 @@ stateDiagram
         state if_data_state <<choice>>
         state "Potwierdzenie daty ślubu" as pd
         state "Złożenie pisemnego oświadczenia o braku czynności wyłączających zawarcie małżeństwa" as osw
-        state "Zawarcie małżeństwa" as m
         state "Odwołanie ślubu" as odw
 
         a --> if_sad_state
@@ -330,7 +309,6 @@ stateDiagram
         o --> u
         if_data_state --> pd : Czy data pasuje? - Tak
         if_data_state --> zd : Czy data pasuje? - Nie
-        pd --> osw
         odw --> [*]
     }
 
@@ -377,6 +355,10 @@ stateDiagram
         slub --> rej
     }
 
+
+    state fork_state <<fork>>
+        pd --> fork_state
+        fork_state --> osw
     state join_state <<join>>
 
     wsa --> wzg
@@ -388,13 +370,12 @@ stateDiagram
     if_popr --> zd : Czy dokumenty poprawne? - Tak
     zd --> d
     dd --> if_data_state
-    pd --> zdat
+    fork_state --> zdat
     um --> op
     op --> join_state
     osw --> join_state
     join_state --> slub
-    slub --> m
-    m --> [*]
+    rej --> [*]
 ```
 
 ### 4. Zgon
@@ -403,11 +384,7 @@ stateDiagram
 
 ```mermaid
 stateDiagram
-    [*] --> s
-    state Zmarły {
-        direction LR
-        state "śmierć" as s
-    }
+    [*] --> b
     state Lekarz {
         direction LR
         state "Badania" as b
@@ -448,7 +425,6 @@ stateDiagram
     state "Administracja cmentarza" as administracja {
         state "Wypełnienie formalności oraz zajęcie się zmarłym" as c1
     }
-    s --> b
 
     Nie --> w : 3 Dni
     Tak --> w : 24h
@@ -479,6 +455,8 @@ Lista aktorów systemu informatycznego:
 - narzeczeni
 - urzędnicy
 
+**TODO:** Ale urzędnicy są różni (będą korzystać z różnych funkcji systemu). Jest kierownik urzędu, urzędnik udzielający ślubu, etc. 
+
 ### Diagramy przypadków użycia systemu
 sporządzone zgodnie z notacją UML diagramy ilustrujące przypadki użycia systemu i ich związki z odpowiednimi aktorami, oraz zależności pomiędzy przypadkami użycia (**\<\<include\>\>**,**\<\<extend\>\>**, generalizacja/specjalizacja).
 
@@ -492,6 +470,9 @@ Funkcje systemowe:
 7. Generowany harmonogram ślubów cywilnych
 8. Złożenie wniosku o zmianę imienia/nazwiska
 9. Rozpatrzenie wniosku o zmianę imienia/nazwiska.
+
+**TODO:** To nie jest notacja diagramu use-case...
+**TODO:** A co jeśli ktoś zgłosi się po wydanie jakiegoś dokumentu (np. odpisu)? Ten system nie umożliwia urzędnikowi wyszukiwania i przeglądania wniosków, aktów...
 
 ```mermaid
 flowchart LR
@@ -520,6 +501,7 @@ flowchart LR
     o5 --> fu7 -.<<\include>>.-> fu1
     o5 --> fu9 -.<<\include>>.-> fu1
 ```
+
 
 ### Specyfikacje przypadków użycia systemu
 specyfikacje przebiegu interakcji w obrębie poszczególnych przypadków użycia w postaci opisu scenariusza głównego (podstawowego), scenariuszy alternatywnych i punktów rozszerzeń.
@@ -587,8 +569,10 @@ Scenariusz alternatywny (użytkownik nie jest rodzicem)
 
 **FU4**: Zatwierdzenie narodzin dziecka przez urzędnika
 
+**TODO:** Którego dziecka? W nocy urodizła się setka dzieci. Brakuje funkcjonalności przeglądania zgłoszeń narodzin.
+
 1. Logowanie użytkownika - FU1
-2. Urzędnik przygotowuje protokół
+2. Urzędnik przygotowuje protokół **TODO:** Jaki protokół i na podstawie czego?
 3. System wyświetla otrzymane dane dziecka
 4. Urzędnik weryfikuje poprawność danych oraz czy wybrane imię jest poprawne dla dziecka
 5. Urzędnik zatwierdza formularz
@@ -708,6 +692,10 @@ graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do 
 
 
 **Uwaga:** Dla każdego przypadku użycia na diagramie należy opracować jego specyfikację oraz projekt ekranu (jeśli z przypadkiem użycia wiąże się wprowadzanie danych, wybieranie opcji).
+
+<div style="page-break-after: always;"></div>
+
+**TODO:** Projekty ekranów muszą być jasno powiązane z przypadkami (który ekran, do którego przypadku)...
 
 <!-- Mateusz Brzozowski -->
 **Logowanie**
