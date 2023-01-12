@@ -141,7 +141,10 @@ Wykonawcy czynności:
 ### Specyfikacje procesów biznesowych
 zwięzły opis poszczególnych procesów biznesowych oraz specyfikacje czynności wykonywanych w ramach poszczególnych procesów zapisane jako diagramy aktywności (ang.activity diagram) w notacji UML. Na diagramach należy podać wykonawców czynności, korzystając z torów (ang. swimlanes) lub boksów. Ponadto, należy w szczególny sposób oznaczyć czynności (węzły diagramów), które wspierać będzie projektowany system informatyczny, np. opatrując je stereotypem **\<\<system\>\>**.
 
-https://mermaid-js.github.io/mermaid/#/stateDiagram
+<!-- https://mermaid-js.github.io/mermaid/#/stateDiagram -->
+
+
+<div style="page-break-after: always;"></div>
 
 ### 1. Zmiana imienia/nazwiska
 <!-- Mateusz Brzozowski -->
@@ -210,6 +213,8 @@ stateDiagram
     k11 --> [*]
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### 2. Narodziny
 <!-- Bartłomiej Krawczyk -->
 
@@ -229,9 +234,12 @@ stateDiagram
     }
 
     state Bliscy {
+        state "Wstępne wypełnienie wniosku" as b0
+        state "<<\system>>" as b0
         state "Wizyta w urzędzie" as b1
-        state "<<\system>>" as b1
         state "Odbiór dokumentów" as b2
+
+        b0 --> b1
     }
     state "Kierownik urzędu" as kierownik {
         state "Przygotowanie protokołu" as k1
@@ -260,7 +268,7 @@ stateDiagram
 
     state fork_state <<fork>>
       l3 --> fork_state
-      fork_state --> b1
+      fork_state --> b0
 
     state join_state <<join>>
       b1 --> join_state: 21 Dni
@@ -270,6 +278,8 @@ stateDiagram
     k6 --> b2: Skrócony akt urodzenia, numer PESEL, potwierdzenie zameldowania
     b2 --> [*]: Rejestracja dziecka
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### 3. Ślub cywilny
 <!-- Gabriela Topczewska -->
@@ -450,12 +460,14 @@ lista użytkowników i systemów informatycznych `podejmujących interakcję` z 
 <!-- Do opisania -->
 Lista aktorów systemu informatycznego:
 - osoba zmieniająca imię lub nazwisko
+- przedstawiciel ustawowy
 - rodzice nowo narodzonego dziecka
 - personel szpitala - lekarze / położne
 - narzeczeni
-- urzędnicy
-
-**TODO:** Ale urzędnicy są różni (będą korzystać z różnych funkcji systemu). Jest kierownik urzędu, urzędnik udzielający ślubu, etc. 
+- Urzędnik rejestrujący narodziny dziecka
+- Urzędnik realizujący zmianę imienia/nazwiska
+- Urzędnik rejestrujący zawarcie ślubu
+- Urzędnik udzielający ślubu
 
 ### Diagramy przypadków użycia systemu
 sporządzone zgodnie z notacją UML diagramy ilustrujące przypadki użycia systemu i ich związki z odpowiednimi aktorami, oraz zależności pomiędzy przypadkami użycia (**\<\<include\>\>**,**\<\<extend\>\>**, generalizacja/specjalizacja).
@@ -472,7 +484,6 @@ Funkcje systemowe:
 9. Rozpatrzenie wniosku o zmianę imienia/nazwiska.
 
 **TODO:** To nie jest notacja diagramu use-case...
-**TODO:** A co jeśli ktoś zgłosi się po wydanie jakiegoś dokumentu (np. odpisu)? Ten system nie umożliwia urzędnikowi wyszukiwania i przeglądania wniosków, aktów...
 
 ```mermaid
 flowchart LR
@@ -480,7 +491,12 @@ flowchart LR
     o2[Rodzic nowo narodzonego dziecka]
     o3[Personel szpitala - lekarz / położna]
     o4[Narzeczeni]
-    o5[Urzędnik]
+    o5[Kierownik urzędu - rejestrujący narodziny dziecka]
+    o6[Kierownik urzędu - zarządzający aktami zmiany imienia/nazwiska]
+    o7[Kierownik urzędu - realizujący zmianę imienia/nazwiska]
+    o8[Kierownik urzędu - rejestrujący zawarcie ślubu]
+    o9[Urzędnik - udzielający ślubu]
+
 
     fu1[Logowanie użytkownika]
     fu2[Zgłoszenie narodzin dziecka przez personel medyczny]
@@ -530,36 +546,55 @@ Scenariusz alternatywny - błędne dane logowania:
 4. System sygnalizuje błędnie wypełnione dane
 5. Powrót do kroku 2.
 
-**FU2**: Zgłoszenie narodzin dziecka przez personel medyczny
+Scenariusz alternatywny - logowanie urzędnika
+- kroki 1-3 takie same jak w scenariuszu głównym
+4. System wykrywa podwyższone uprawnienia użytkownika i przenosi go do strony z większymi dostępami
+
+**FU2**: Przeglądanie katalogu z dostępnymi wnioskami
+1. Logowanie użytkownika - FU1
+2. Urzędnik przechodzi do widoku nieobsłużonych wniosków
+3. System wyświetla w przystępny sposób najnowsze nie obsłużone jeszcze zgłoszenia w danym urzędzie
+4. Urzędnik określa jakiego typu zgłoszenia mają być wyświetlane
+5. System filtruje nadmiarowe wyniki wyszukiwania
+
+**FU3**: Wyszukiwanie wniosku
+1. Logowanie użytkownika - FU1
+2. Urzędnik przechodzi do trybu wyszukiwania
+3. Urzędnik wpisuje frazę w okno wyszukiwania
+4. System zwraca wszystkie wnioski z dostępną frazą
+
+**FU4**: Zgłoszenie narodzin dziecka przez personel medyczny
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
-2. System pokazuje formularz z kartą urodzenia do wypełnienia
-3. Lekarz odbierający poród wypełnia formularz
-4. Lekarz sprawdza poprawność formularza
-5. System wysyła kartę urodzenia do urzędu
+2. Personel wybiera wypełnienie karty urodzenia dziecka
+3. System pokazuje formularz z kartą urodzenia do wypełnienia
+4. Lekarz odbierający poród wypełnia formularz
+5. Lekarz sprawdza poprawność formularza
+6. System wysyła kartę urodzenia do urzędu
 
-**FU3**: Zgłoszenie narodzin dziecka przez rodziców dziecka
+**FU5**: Zgłoszenie narodzin dziecka przez rodziców dziecka
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
-2. System prosi o zaznaczenie oświadczenia o byciu rodzicem
-3. Użytkownik potwierdza wybór
-4. System wyświetla formularze z informacjami do uzupełnienia o rodzicach dziecka
-5. Użytkownik uzupełnienia informacje o ojcu dziecka
-6. Użytkownik uzupełnienia informacje o matce dziecka
-7. Użytkownik uzupełnienia informacje o dziecku
-8. Wybiera adres zameldowania dziecka
-9. System pyta o preferowany sposób kontaktu
-10. Użytkownik uzupełnienia informacje o preferowanym kontakcie
-11. System wyświetla podsumowanie wniosku
-12. Użytkownik weryfikuje poprawność
-13. Wysłanie wniosku do urzędu
+2. Rodzice wybierają w systemie formularz zgłoszenia narodzin
+3. System prosi o zaznaczenie oświadczenia o byciu rodzicem
+4. Użytkownik potwierdza wybór
+5. System wyświetla formularze z informacjami do uzupełnienia o rodzicach dziecka
+6. Użytkownik uzupełnienia informacje o ojcu dziecka
+7. Użytkownik uzupełnienia informacje o matce dziecka
+8. Użytkownik uzupełnienia informacje o dziecku
+9. Wybiera adres zameldowania dziecka
+10. System pyta o preferowany sposób kontaktu
+11. Użytkownik uzupełnienia informacje o preferowanym kontakcie
+12. System wyświetla podsumowanie wniosku
+13. Użytkownik weryfikuje poprawność
+14. Wysłanie wniosku do urzędu
 
 Scenariusz alternatywny (rodzic nie pełnoletni)
 1. Logowanie użytkownika - FU1
 2. System wykrył, że użytkownik nie jest pełnoletni
-3. System wyświetla informację o konieczności pójścia do urzędu z pełnomocnikiem 
+3. System wyświetla informację o konieczności wypełnienia wniosku w urzędzie wraz z pełnomocnikiem 
 
 Scenariusz alternatywny (użytkownik nie jest rodzicem)
 1. Logowanie użytkownika - FU1
@@ -567,33 +602,38 @@ Scenariusz alternatywny (użytkownik nie jest rodzicem)
 3. Użytkownik nie jest rodzicem
 4. System informuje o konieczności pójścia do urzędu z pełnomocnikiem
 
-**FU4**: Zatwierdzenie narodzin dziecka przez urzędnika
+**FU6**: Zatwierdzenie narodzin dziecka przez urzędnika
 
-**TODO:** Którego dziecka? W nocy urodizła się setka dzieci. Brakuje funkcjonalności przeglądania zgłoszeń narodzin.
-
-1. Logowanie użytkownika - FU1
-2. Urzędnik przygotowuje protokół **TODO:** Jaki protokół i na podstawie czego?
-3. System wyświetla otrzymane dane dziecka
+Scenariusz główny:
+1. Urzędnik przyjmuje rodziców i wyszukuje odpowiedni wniosek - FU3
+2. System oznacza zgłoszenie jako w trakcie obsługi
+3. System wyświetla wprowadzone dane dziecka oraz jego rodziców
 4. Urzędnik weryfikuje poprawność danych oraz czy wybrane imię jest poprawne dla dziecka
 5. Urzędnik zatwierdza formularz
 6. Urzędnik wprowadza dane zameldowania dziecka
 7. System generuje kolejny numer PESEL
 8. Urzędnik zatwierdza formularz
-9. System generuje akt urodzenia
+9. System generuje protokół zgłoszenia dziecka, który musi być podpisany przez kierownika urzędu, rodziców oraz obecnych tłumacza oraz biegłego (jeśli brali udział w czynności)
+10. System generuje akt urodzenia
 
 Scenariusz alternatywny (urzędnik nie zatwierdza imienia dziecka)
-- kroki 1-4 oraz 6-9 są takie same
+- kroki 1-4 oraz 6-10 są takie same
 5. Urzędnik wymyśla nowe imię oraz wprowadza je do systemu
 
-**FU5**: Rejestracja zgonu przez urzędnika
+Scenariusz alternatywny (mija 21 dni od zgłoszenia narodzin dziecka, a rodzice nie pojawili się w urzędzie)
+- kroki 3 - 10 takie same
+1. Urzędnik przegląda dostępne zgłoszenia i filtruje nieobsłużone zgłoszenia sprzed 21 dni - FU2
 
-1. Logowanie użytkownika - FU1
-2. Urzędnik wprowadza zgon do systemu
-3. System generuje akt zgonu
-4. Urzędnik weryfikuje dane oraz zatwierdza formularz
-5. System automatycznie wymeldowuje zmarłego oraz unieważnia dokumenty
+**FU7**: Rejestracja zgonu przez urzędnika
 
-**FU6**: Złożenie wniosku o wzięcie ślubu cywilnego
+1. Logowanie urzędnika - FU1
+2. Urzędnik wybiera opcję wprowadzenia zgonu do systemu
+3. Urzędnik wprowadza dane dotyczące zgonu
+4. System generuje akt zgonu
+5. Urzędnik weryfikuje dane oraz zatwierdza formularz
+6. System automatycznie wymeldowuje zmarłego oraz unieważnia dokumenty
+
+**FU8**: Złożenie wniosku o wzięcie ślubu cywilnego
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
@@ -645,47 +685,59 @@ Scenariusz alternatywny - opłata dokonywana w urzędzie:
 10. System informuje użytkownika o kolejnych krokach, które ten musi podjąć po złożeniu wniosku.
 11. Wniosek zostaje złożony w urzędzie.
 
-**FU7**: Generowany harmonogram ślubów cywilnych
+**FU9**: Rozpatrzenie wniosku o wzięcie ślubu cywilnego
+
+1. Urzędnik przyjmuje narzeczonych i wyszukuje odpowiedni wniosek - FU3
+2. System wyświetla wprowdzone poprzednio dane
+3. Urzędnik weryfikuje poprawność danych
+4. Urzędnik zatwierdza formularz
+5. System pokazuje dostępne daty ślubu
+6. Urzędnik wraz z narzeczonymi decyduje o dacie ślubu
+7. Urzędnik wprowadza datę
+8. System przydziela dostępnego urzędnika udzielającego ślubu
+
+**FU10**: Generowany harmonogram ślubów cywilnych
 
 Scenariusz główny:
-1. Logowanie użytkownika - FU1
-2. Użytkownik wybiera opcję generowania harmonogramu.
-3. Użytkownik wybiera zakres dat, który go interesuje.
-4. Użytkownik zatwierdza wybór.
+1. Logowanie urzędnika - FU1
+2. Urzędnik wybiera opcję generowania harmonogramu własnego.
+3. Urzędnik wybiera zakres dat, który go interesuje.
+4. Urzędnik zatwierdza wybór.
 5. System generuje harmonogram ślubów do pliku pdf.
 
-Scenariusz alternatywny - użytkownik nie jest urzędnikiem:
-1. Logowanie użytkownika - FU1
-2. System wykrywa, że użytkownik nie jest urzędnikiem - brak możliwości wygenerowania harmonogramu.
+**FU11**: Rejestracja nowego małżeństwa
+1. Urzędnik po udzieleniu ślubu wyszukuje odpowiedni wniosek - FU3
+2. Wprowadza do systemu potwierdzenie zawartego ślubu
+3. System rejestruje zmianę statusu osób
 
-**FU8**: Złożenie wniosku o zmianę imienia/nazwiska.
+**FU12**: Złożenie wniosku o zmianę imienia/nazwiska
 
 Scenariusz główny:
 1. Logowanie użytkownika - FU1
-2. Użytkownik wybiera opcję złożenia wniosku o zmianę imienia/nazwiska.
-3. Wybó kogo dotyczy wniosek (użytkownika, czy małoletniego potomka).
-4. Wypełnienie informacji nt. miejsca sporządzenia aktu urodzenia.
-5. Jeśli dotyczy - wypełnienie informacji nt. miejsca sporządzenia aktu małżeństwa.
-6. Jeśli dotyczy - złożenie wniosku o przeniesienie zagranicznych dokumentów stanu cywilnego.
-7. Załączenie wymaganych dokumentów.
-8. Wypełnienie informacji dot. motywacji do zmiany imienia/nazwiska.
-9. Zatwierdzenie poprawności informacji przez użytkownika.
-10. Wysłanie wniosku.
+2. Użytkownik wybiera opcję złożenia wniosku o zmianę imienia/nazwiska
+3. Wybór kogo dotyczy wniosek (użytkownika, czy małoletniego potomka)
+4. Wypełnienie informacji nt. miejsca sporządzenia aktu urodzenia
+5. Jeśli dotyczy - wypełnienie informacji nt. miejsca sporządzenia aktu małżeństwa
+6. Jeśli dotyczy - złożenie wniosku o przeniesienie zagranicznych dokumentów stanu cywilnego
+7. Załączenie wymaganych dokumentów
+8. Wypełnienie informacji dot. motywacji do zmiany imienia/nazwiska
+9. Zatwierdzenie poprawności informacji przez użytkownika
+10. Wysłanie wniosku
 
 Scenariusz alternatywny - użytkownik niepełnoletni:
 1. Logowanie użytkownika - FU1
-2. Użytkownik wybiera opcję złożenia wniosku o zmianę imienia/nazwiska.
-3. System rozpoznaje, że użytkownik jest niepełnoletni.
-4. Wyświetlenie informacji o braku możliwości złożenia wniosku.
+2. Użytkownik wybiera opcję złożenia wniosku o zmianę imienia/nazwiska
+3. System rozpoznaje, że użytkownik jest niepełnoletni
+4. Wyświetlenie informacji o braku możliwości złożenia wniosku
 
-**FU9** Rozpatrzenie wniosku o zmianę imienia/nazwiska. 
-1. Logowanie użytkownika - FU1
-2. Otrzymanie informacji o nowym wniosku.
-3. Sprawdzenie poprawności wniosku.
-4. Zatwierdzenie wniosku.
-5. Rozesłanie przez system informacji do wnioskodawców o pomyślnym zakończeniu rozpatrzenia wniosku.
-6. Rozesłanie przez system informacji do innych urzędów o zmianie danych osobowych wnioskodawcy.
-7. Uaktualnienie przez system akt stanu cywilnego wnioskodawcy.
+**FU13** Rozpatrzenie wniosku o zmianę imienia/nazwiska
+1. Przeglądanie katalogu z nieobsłużonymi wnioskami o zmianę imienia/nazwiska - FU2
+2. System oznacza wniosek jako w trakcie obsługi
+3. Sprawdzenie poprawności wniosku
+4. Zatwierdzenie wniosku
+5. Rozesłanie przez system informacji do wnioskodawców o pomyślnym zakończeniu rozpatrzenia wniosku
+6. Rozesłanie przez system informacji do innych urzędów o zmianie danych osobowych wnioskodawcy
+7. Uaktualnienie przez system aktu stanu cywilnego wnioskodawcy
 
 ### Projekty ekranów
 graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do wprowadzania danych lub wybierania opcji przez użytkownika w ramach danego przypadku użycia.
@@ -693,22 +745,37 @@ graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do 
 
 **Uwaga:** Dla każdego przypadku użycia na diagramie należy opracować jego specyfikację oraz projekt ekranu (jeśli z przypadkiem użycia wiąże się wprowadzanie danych, wybieranie opcji).
 
+<!-- Mateusz Brzozowski -->
+
 <div style="page-break-after: always;"></div>
 
-**TODO:** Projekty ekranów muszą być jasno powiązane z przypadkami (który ekran, do którego przypadku)...
-
-<!-- Mateusz Brzozowski -->
-**Logowanie**
+## Logowanie - FU1
 
 ![](./ekrany/Wireframe%20-%206.png)
 
 ![](./ekrany/Wireframe%20-%207.png)
 
-**Zgłoszenie narodzin dziecka przez personel medyczny**
+<div style="page-break-after: always;"></div>
+
+## Przeglądanie katalogu z dostępnymi wnioskami - FU2
+
+**TODO**
+
+<div style="page-break-after: always;"></div>
+
+## Wyszukiwanie wniosku - FU3
+
+**TODO**
+
+<div style="page-break-after: always;"></div>
+
+## Zgłoszenie narodzin dziecka przez personel medyczny - FU4
 
 ![](./ekrany/Wireframe%20-%2010.png)
 
-**Zgłoszenie narodzin dziecka przez rodziców dziecka**
+<div style="page-break-after: always;"></div>
+
+## Zgłoszenie narodzin dziecka przez rodziców dziecka - FU5
 
 ![](./ekrany/Wireframe%20-%202.png)
 ![](./ekrany/Wireframe%20-%201.png)
@@ -717,9 +784,52 @@ graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do 
 ![](./ekrany/Wireframe%20-%205.png)
 ![](./ekrany/Wireframe%20-%208.png)
 
-**Zatwierdzenie narodzin dziecka przez urzędnika**
+<div style="page-break-after: always;"></div>
+
+## Zatwierdzenie narodzin dziecka przez urzędnika - FU6
 
 ![](./ekrany/Wireframe%20-%209.png)
+
+
+<div style="page-break-after: always;"></div>
+
+## Rejestracja zgonu przez urzędnika - FU7
+
+**TODO**
+
+<div style="page-break-after: always;"></div>
+
+## Złożenie wniosku o wzięcie ślubu cywilnego - FU8
+
+**TODO**
+
+## Rozpatrzenie wniosku o wzięcie ślubu cywilnego - FU9
+
+**TODO**
+
+<div style="page-break-after: always;"></div>
+
+## Generowany harmonogram ślubów cywilnych - FU10
+
+**TODO**
+
+<div style="page-break-after: always;"></div>
+
+## Rejestracja nowego małżeństwa - FU11
+
+**TODO**
+
+<div style="page-break-after: always;"></div>
+
+## Złożenie wniosku o zmianę imienia/nazwiska - FU12
+
+**TODO**
+
+<div style="page-break-after: always;"></div>
+
+## Rozpatrzenie wniosku o zmianę imienia/nazwiska - FU13
+
+**TODO**
 
 # Modelowanie pojęć systemu
 
