@@ -911,3 +911,61 @@ classDiagram
 zwięzły opis znaczenia poszczególnych klas i ich atrybutów.
 
 **Uwaga:** Nie podajemy operacji dla klas. Każda asocjacja musi być nazwana.
+
+\
+**Wniosek** \
+Jest to podstawowa jednostka służąca do komunikacji pomiędy interesantem, a urzędem stanu cywilnego. Zawiera wszystkie niezbędne do identyfikacji konkretnego przypadku załatwianej sprawy informacje: 
+- typ wniosku,
+- adres urzędu do którego zgłaszany jest wniosek (zawiera obiekt klasy *Adres*),
+- dane wnioskodawców, dane osób zgłaszanych we wniosku, niebędących jednocześnie wnioskodawcami (np. nowonarodzone dziecko lub osoba zmarła) (zawiera obiekt klasy *Osoba*),
+- datę wydarzenia uwzględnionego we wniosku (zawiera obiekt klasy *Wydarzenie*),
+- dane kontaktowe do wnioskodawcy. 
+
+**Wydarzenie** \
+Klasa obrazująca wydarzenie, które może zostać zaplanowane w ramach prośby złożonej we wniosku (np. zawarcie związku małżeńskiego). Klasa ta zawiera:
+- typ planowanego wydarzenia,
+- adres wydarzenia (zawiera obiekt klasy *Adres*),
+- nazwę wydarzenia,
+- datę wydarzenia,
+- dane osób wymaganych do odbycia wydarzenia (angażuje osoby opisane przez klasę *Osoba*).
+
+Wydarzenie jest też składową *Wniosku*. 
+
+**Osoba** \
+Klasa ta zawiera w sobie wszystkie niezbędne z punktu widzenia urzędu stanu cywilnego informacje na temat konkretnej osoby. Są to:
+- pesel,
+- imię, 
+- kolejne imiona (jeśli posiada),
+- nazwisko,
+- nazwisko rodowe (jeśli posiada),
+- datę urodzenia, 
+- miejsce urodzenia,
+- obywatelstwo,
+- adres zameldowania,
+- miejsce zamieszkania,
+- wykształcenie.
+
+Klasa ta zawiera w sobie 3 obiekty klasy *Adres* - opisują one miejsce urodzenia, adres zameldowania oraz miejsce zamieszkania.
+
+**Dziecko** \
+Klasa pochodna od klasy *Osoba*. Zawiera te same elementy, co klasa nadrzędna, a dodatkowo również:
+- płeć,
+- czas trwania ciąży matki,
+- ciężar ciała przy urodzeniu,
+- długość ciała przy urodzeniu, 
+- wartości skali APGAR po 1 minucie, 5 minutach, 10 minutach,
+- dane ojca dziecka (posiada rodzica opisywanego przez klasę *Osoba*),
+- dane matki dziecka (posiada rodzica opisywanego przez klasę *Osoba*),
+- miejsce sporządzenia aktu urodzenia (urodziło się pod danym *Adresem*),
+- ozaczenie aktu urodzenia. 
+
+**Adres** \
+Jest to klasa opisująca adres wykorzystywany w ramach *Wniosku*, pomagający określić dane osobowe *Osoby*, w tym *Dziecka*, a także określający lokalizację *Wydarzenia*. Posiada następujące atrybuty:
+- nazwę placówki (jeśli wymagana),
+- miejscowość, 
+- województwo,
+- powiat, 
+- gminę,
+- ulicę, 
+- adres (numer bądź ozanczenie) budynku,
+- adres (numer bądź oznaczenie) mieszkania.
