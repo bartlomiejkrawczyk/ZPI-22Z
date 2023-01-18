@@ -565,7 +565,7 @@ Scenariusz główny:
 Scenariusz alternatywny (rodzic nie pełnoletni)
 1. Logowanie użytkownika - FU1
 2. System wykrył, że użytkownik nie jest pełnoletni
-3. System wyświetla informację o konieczności wypełnienia wniosku w urzędzie wraz z pełnomocnikiem 
+3. System wyświetla informację o konieczności wypełnienia wniosku w urzędzie wraz z pełnomocnikiem
 
 Scenariusz alternatywny (użytkownik nie jest rodzicem)
 1. Logowanie użytkownika - FU1
@@ -730,13 +730,13 @@ graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do 
 
 ## Przeglądanie katalogu z dostępnymi wnioskami - FU2
 
-**TODO**
+![](./ekrany/FU2.png)
 
 <div style="page-break-after: always;"></div>
 
 ## Wyszukiwanie wniosku - FU3
 
-**TODO**
+![](./ekrany/FU3.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -766,41 +766,42 @@ graficzny szkic lub zrzut z ekranu komputera, ekranu/formularza służącego do 
 
 ## Rejestracja zgonu przez urzędnika - FU7
 
-**TODO**
+![](./ekrany/FU7-a.png)
+![](./ekrany/FU7-b.png)
 
 <div style="page-break-after: always;"></div>
 
 ## Złożenie wniosku o wzięcie ślubu cywilnego - FU8
 
-**TODO**
+![](./ekrany/FU8.png)
 
 ## Rozpatrzenie wniosku o wzięcie ślubu cywilnego - FU9
 
-**TODO**
+![](./ekrany/FU9.png)
 
 <div style="page-break-after: always;"></div>
 
 ## Generowany harmonogram ślubów cywilnych - FU10
 
-**TODO**
+![](./ekrany/FU10.png)
 
 <div style="page-break-after: always;"></div>
 
 ## Rejestracja nowego małżeństwa - FU11
 
-**TODO**
+![](./ekrany/FU11.png)
 
 <div style="page-break-after: always;"></div>
 
 ## Złożenie wniosku o zmianę imienia/nazwiska - FU12
 
-**TODO**
+![](./ekrany/FU12.png)
 
 <div style="page-break-after: always;"></div>
 
 ## Rozpatrzenie wniosku o zmianę imienia/nazwiska - FU13
 
-**TODO**
+![](./ekrany/FU13.png)
 
 # Modelowanie pojęć systemu
 
@@ -862,7 +863,7 @@ classDiagram
         Napis województwo
         Napis powiat
         Napis gmina
-        
+
         Napis ulica
         Napis adresBudynku
         Napis adresMieszkania
@@ -914,12 +915,12 @@ zwięzły opis znaczenia poszczególnych klas i ich atrybutów.
 
 \
 **Wniosek** \
-Jest to podstawowa jednostka służąca do komunikacji pomiędy interesantem, a urzędem stanu cywilnego. Zawiera wszystkie niezbędne do identyfikacji konkretnego przypadku załatwianej sprawy informacje: 
+Jest to podstawowa jednostka służąca do komunikacji pomiędy interesantem, a urzędem stanu cywilnego. Zawiera wszystkie niezbędne do identyfikacji konkretnego przypadku załatwianej sprawy informacje:
 - typ wniosku,
 - adres urzędu do którego zgłaszany jest wniosek (zawiera obiekt klasy *Adres*),
 - dane wnioskodawców, dane osób zgłaszanych we wniosku, niebędących jednocześnie wnioskodawcami (np. nowonarodzone dziecko lub osoba zmarła) (zawiera obiekt klasy *Osoba*),
 - datę wydarzenia uwzględnionego we wniosku (zawiera obiekt klasy *Wydarzenie*),
-- dane kontaktowe do wnioskodawcy. 
+- dane kontaktowe do wnioskodawcy.
 
 **Wydarzenie** \
 Klasa obrazująca wydarzenie, które może zostać zaplanowane w ramach prośby złożonej we wniosku (np. zawarcie związku małżeńskiego). Klasa ta zawiera:
@@ -929,16 +930,16 @@ Klasa obrazująca wydarzenie, które może zostać zaplanowane w ramach prośby 
 - datę wydarzenia,
 - dane osób wymaganych do odbycia wydarzenia (angażuje osoby opisane przez klasę *Osoba*).
 
-Wydarzenie jest też składową *Wniosku*. 
+Wydarzenie jest też składową *Wniosku*.
 
 **Osoba** \
 Klasa ta zawiera w sobie wszystkie niezbędne z punktu widzenia urzędu stanu cywilnego informacje na temat konkretnej osoby. Są to:
 - pesel,
-- imię, 
+- imię,
 - kolejne imiona (jeśli posiada),
 - nazwisko,
 - nazwisko rodowe (jeśli posiada),
-- datę urodzenia, 
+- datę urodzenia,
 - miejsce urodzenia,
 - obywatelstwo,
 - adres zameldowania,
@@ -952,20 +953,20 @@ Klasa pochodna od klasy *Osoba*. Zawiera te same elementy, co klasa nadrzędna, 
 - płeć,
 - czas trwania ciąży matki,
 - ciężar ciała przy urodzeniu,
-- długość ciała przy urodzeniu, 
+- długość ciała przy urodzeniu,
 - wartości skali APGAR po 1 minucie, 5 minutach, 10 minutach,
 - dane ojca dziecka (posiada rodzica opisywanego przez klasę *Osoba*),
 - dane matki dziecka (posiada rodzica opisywanego przez klasę *Osoba*),
 - miejsce sporządzenia aktu urodzenia (urodziło się pod danym *Adresem*),
-- ozaczenie aktu urodzenia. 
+- ozaczenie aktu urodzenia.
 
 **Adres** \
 Jest to klasa opisująca adres wykorzystywany w ramach *Wniosku*, pomagający określić dane osobowe *Osoby*, w tym *Dziecka*, a także określający lokalizację *Wydarzenia*. Posiada następujące atrybuty:
 - nazwę placówki (jeśli wymagana),
-- miejscowość, 
+- miejscowość,
 - województwo,
-- powiat, 
+- powiat,
 - gminę,
-- ulicę, 
+- ulicę,
 - adres (numer bądź ozanczenie) budynku,
 - adres (numer bądź oznaczenie) mieszkania.
